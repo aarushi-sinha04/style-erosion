@@ -18,7 +18,7 @@ from torch.utils.data import Dataset, DataLoader
 
 # Configuration
 DATA_DIR = "."
-OUTPUT_DIR = "results_pan_siamese"
+OUTPUT_DIR = "results/siamese_baseline"
 TRAIN_FILE = "pan22-authorship-verification-training.jsonl"
 TRUTH_FILE = "pan22-authorship-verification-training-truth.jsonl"
 

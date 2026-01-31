@@ -23,11 +23,11 @@ from datetime import datetime
 # Imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.data_loader_scie import PAN22Loader, BlogTextLoader, EnronLoader, IMDBLoader
-from models.dann_siamese_v3 import DANNSiameseV3
+from models.dann import DANNSiameseV3
 from utils.feature_extraction import EnhancedFeatureExtractor
 
 # Config
-OUTPUT_DIR = "results_dann"
+OUTPUT_DIR = "results/final_dann"
 DEVICE = 'mps' if torch.backends.mps.is_available() else ('cuda' if torch.cuda.is_available() else 'cpu')
 MAX_FEATURES = 4308
 DOMAIN_NAMES = ['PAN22', 'BlogText', 'Enron', 'IMDB']

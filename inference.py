@@ -7,9 +7,10 @@ import os
 import argparse
 
 # Configuration
-MODEL_PATH = "results_pan_siamese/best_model.pth"
-VEC_PATH = "results_pan_siamese/vectorizer.pkl"
-SCALER_PATH = "results_pan_siamese/scaler.pkl"
+# Configuration
+MODEL_PATH = "results/siamese_baseline/best_model.pth"
+VEC_PATH = "results/siamese_baseline/vectorizer.pkl"
+SCALER_PATH = "results/siamese_baseline/scaler.pkl"
 MAX_FEATURES = 3000
 HIDDEN_DIM = 512
 DROPOUT = 0.0  # No dropout during inference

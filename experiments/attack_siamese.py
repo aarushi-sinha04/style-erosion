@@ -17,9 +17,9 @@ import seaborn as sns
 # ==============================================================================
 # CONFIG
 # ==============================================================================
-MODEL_DIR = "results_pan_siamese"
+MODEL_DIR = "results/siamese_baseline"
 DATA_DIR = "."
-OUTPUT_DIR = "results_pan_attack"
+OUTPUT_DIR = "results/attack_baseline"
 TRAIN_FILE = "pan22-authorship-verification-training.jsonl"
 TRUTH_FILE = "pan22-authorship-verification-training-truth.jsonl"
 
