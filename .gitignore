@@ -18,43 +18,11 @@ env/
 # Datasets (Large files)
 emails.csv
 blogtext.csv
+IMDB Dataset.csv
 *.jsonl
 *.zip
 *.tar.gz
-
-# Results and Models
-results/
-results_*/
-*.pth
-*.bin
-*.pkl
-*.safetensors
-
-# Logs
-*.log
-
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.env
-venv/
-env/
-.venv/
-
-# VS Code
-.vscode/
-
-# Mac
-.DS_Store
-
-# Datasets (Large files)
-emails.csv
-*.jsonl
-*.zip
-*.tar.gz
+*.csv
 
 # Results and Models
 results/

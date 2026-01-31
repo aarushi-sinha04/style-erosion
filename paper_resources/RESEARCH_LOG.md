@@ -52,3 +52,32 @@
 
 ## How to Cite in Paper
 "We progressed from hand-crafted features (Phase 1) to geometric distance metrics (Phase 2), finding that linear separation was insufficient for short texts. We concluded that a non-linear similarity metric learned via a Siamese Neural Network (Phase 3) was necessary to disentangle stylistic signatures from noise, ultimately achieving 91% accuracy. Finally, we demonstrated in Phase 5 that this high-performance model remains vulnerable to adversarial attacks, with T5-based paraphrasing eroding confidence by ~0.50."
+
+# 2026-01-28: DANN V4 Optimization & Evaluation
+
+## Objective
+Improve cross-domain authorship verification accuracy to >70%.
+
+## Methodology
+- **Model:** DANN Siamese V3/V4 (Attention + Spectral Norm).
+- **Training:** Curriculum Learning (Warmup -> Adapt).
+  - Epochs: 45 (Early stopping).
+  - Peak GRL Lambda: 0.5.
+  - Losses: BCE (Auth) + CE (Domain) + MMD (0.1) + Center (0.05).
+- **Evaluation:** Optimal thresholding based on ROC-AUC.
+
+## Results
+- **Enron:** 77.5% (AUC 0.838) - **Significant Success**.
+- **BlogText:** 60.7% (AUC 0.633).
+- **PAN22:** 53.6% (AUC 0.535) - **Bottleneck**.
+- **Average:** 64.0%.
+
+## Analysis
+- **Alignment:** Successfully aligned Blog, Enron, and IMDB (A-distance < 0.4).
+- **Outlier:** PAN22 is stylistically distinct (A-distance > 1.5) due to cross-discourse nature (email vs SMS pairs).
+- **Performance:** Strong on single-discourse domains (Enron), weak on mixed-discourse (PAN22).
+
+## Artifacts
+- Model: `results_dann/dann_siamese_v2.pth` (V4 weights).
+- Plot: `results_dann/dann_embedding_space_final.png`.
+- Report: `results_dann/dann_results_final.md`.
