@@ -94,11 +94,41 @@ This strategy:
 
 ---
 
-## 5. Artifacts & Resources
+---
+
+## 6. Phase 6: Robustness Sprint Results (Final Evaluation)
+
+We conducted a comprehensive evaluation of the Base Generalist (DANN), the Specialist (Siamese), and the Robust Interaction-Aware model (Robust DANN).
+
+### 6.1. Accuracy & Robustness Metrics
+
+| Model | PAN22 (Clean) | Enron (Clean) | BlogText (Clean) | Attack Success Rate (ASR) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Base DANN** | 51.2% | **74.8%** | **56.7%** | 50.0% (High Vulnerability) |
+| **Robust DANN** | 50.0% | 46.1% | 42.0% | **20.0%** (High Robustness) |
+| **Siamese (Specialist)** | **97.2%** | 57.3% | 52.8% | 50.0% |
+| **Ensemble** | **97.2%** | 56.8% | 52.6% | 50.0% |
+
+### 6.2. Key Findings
+1.  **Specialization is King:** The Siamese network achieves near-perfect accuracy (97.2%) on the gold-standard PAN22 dataset, far outperforming domain-adaptive models.
+2.  **Generalization Success:** The Base DANN successfully adapts to the Enron domain (74.8%), proving that domain-adversarial training works for distinct but compatible domains (Email vs Blog), unlike the fractured PAN22.
+3.  **The Robustness Trade-off:** The Robust DANN significantly reduced Attack Success Rate (ASR) from 50% to **20%**, demonstrating effective defense against T5 paraphrasing. However, this came at a severe cost to clean accuracy on Enron (dropping to 46.1%), effectively identifying a "Stability-Plasticity Dilemma" in stylometry.
+4.  **Ensemble Routing:** The ensemble correctly routed PAN22 samples to the Siamese expert (matching 97.2% accuracy) but struggled to route Enron samples to the DANN expert.
+
+### 6.3. Conclusion
+We have established that **no single model can do it all**. The optimal deployment strategy is a **Hard-Router Ensemble**:
+- Use **Siamese** for high-stakes verification (ID checks).
+- Use **Base DANN** for cross-domain investigation (Emails).
+- Use **Robust DANN** only when under active adversarial attack.
+
+---
+
+## 7. Artifacts & Resources
 *   **Models:**
-    *   Siamese (SOTA): `results_pan_siamese/best_model.pth`
-    *   DANN (Generalist): `results_dann/dann_siamese_v2.pth`
+    *   Siamese (SOTA): `results/siamese_baseline/best_model.pth`
+    *   Base DANN (Generalist): `results/final_dann/dann_model_v4.pth`
+    *   Robust DANN (Defender): `results/robust_dann/robust_dann_model.pth`
 *   **Code:**
-    *   Training: `experiments/dann_training_v4.py`
-    *   Evaluation: `experiments/dann_evaluation_v3.py`
-*   **Visuals:** `results_dann/dann_embedding_space_final.png` (t-SNE).
+    *   Training: `experiments/train_dann.py`, `experiments/train_robust.py`
+    *   Evaluation: `experiments/eval_robust_all.py`
+*   **Metrics:** `results/final_robustness_metrics.json`

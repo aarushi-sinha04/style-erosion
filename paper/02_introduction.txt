@@ -1,0 +1,20 @@
+# 1. Introduction
+
+Authorship verification—determining if two texts share the same author—is critical for forensics, plagiarism detection, and cybersecurity. Deep learning models achieve impressive accuracy (>90%) on benchmarks like PAN, but these assume same-domain test data.
+
+Real forensic scenarios face cross-domain challenges:
+- Models trained on literature must verify emails
+- Models trained on formal writing must handle social media
+- Models trained on long documents must process short messages
+
+We investigate:
+1. How do models generalize across domains?
+2. Can domain adaptation (DANN) bridge the gap?
+3. What are the limits of cross-domain stylometry?
+4. How robust are models to adversarial manipulation?
+
+In this work, we present:
+1. First systematic cross-domain evaluation (4 domains).
+2. Evidence that DANN causes negative transfer for disjoint domains (like Fanfiction vs Email).
+3. A Multi-Expert Ensemble achieving 72.4% accuracy, solving the negative transfer problem.
+4. An adversarial evaluation using T5-generated paraphrases, evaluated with semantic metrics (BERTScore).

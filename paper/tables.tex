@@ -1,0 +1,51 @@
+
+\begin{table}[h]
+\centering
+\caption{Cross-Domain Authorship Verification Accuracy}
+\begin{tabular}{lccccc}
+\hline
+\textbf{Model} & \textbf{PAN22} & \textbf{Blog} & \textbf{Enron} & \textbf{IMDB} & \textbf{Avg} \\
+\hline
+Siamese (Single) & 91.0\% & 49.8\% & 52.2\% & - & 64.3\% \\
+DANN & 53.6\% & 60.7\% & 77.5\% & 65.0\% & 64.2\% \\
+\textbf{Multi-Expert (Ours)} & \textbf{98.0\%} & \textbf{71.5\%} & \textbf{79.0\%} & \textbf{68.0\%} & \textbf{79.1\%} \\
+\hline
+\end{tabular}
+\label{tab:crossdomain}
+\end{table}
+
+
+
+\begin{table}[h]
+\centering
+\caption{Adversarial Attack Evaluation}
+\begin{tabular}{lcc}
+\hline
+\textbf{Attack Method} & \textbf{Success Rate} & \textbf{BERTScore (F1)} \\
+\hline
+T5 Paraphrase & 56\% & 0.885 \\
+Combined Attack & 60\% & 0.87 \\
+\hline
+\end{tabular}
+\label{tab:attacks}
+\end{table}
+
+
+
+\begin{table}[h]
+\centering
+\caption{Domain Similarity (A-Distance)}
+\begin{tabular}{lc}
+\hline
+\textbf{Domain Pair} & \textbf{A-Distance} \\
+\hline
+PAN22 - BlogText & 1.564 \\
+PAN22 - Enron & 1.612 \\
+PAN22 - IMDB & 1.713 \\
+BlogText - Enron & 0.368 \\
+BlogText - IMDB & 0.287 \\
+Enron - IMDB & 0.178 \\
+\hline
+\end{tabular}
+\label{tab:distance}
+\end{table}

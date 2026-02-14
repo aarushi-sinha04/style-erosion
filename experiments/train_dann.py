@@ -35,18 +35,18 @@ if not os.path.exists(OUTPUT_DIR):
 DEVICE = 'mps' if torch.backends.mps.is_available() else ('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using Device: {DEVICE}")
 
-# Training Hyperparameters - REBALANCED
+# Training Hyperparameters - FIXED V2
 MAX_FEATURES = 4308
 BATCH_SIZE = 64
-EPOCHS = 100  # More epochs for curriculum learning
-PATIENCE = 25  # More patience
-SAMPLES_PER_DOMAIN = 5000
+EPOCHS = 50
+PATIENCE = 15
+SAMPLES_PER_DOMAIN = 4000
 
-# Loss weights - REDUCED for better balance
-LAMBDA_MMD = 0.1  # Reduced from 0.5
-LAMBDA_CENTER = 0.05  # Reduced from 0.1
-GRL_PEAK = 0.5  # Reduced from 1.5
-WARMUP_EPOCHS = 15  # Pure authorship training first
+# Loss weights - REDUCED, let authorship dominate
+LAMBDA_MMD = 0.05
+LAMBDA_CENTER = 0.02
+GRL_PEAK = 0.3    # Was 0.5, too aggressive
+WARMUP_EPOCHS = 5  # Was 12, too long
 
 DOMAIN_NAMES = ['PAN22', 'Blog', 'Enron', 'IMDB']
 
@@ -347,8 +347,8 @@ def train_dann_v4():
     print("=" * 60)
     
     model = DANNSiameseV3(input_dim=MAX_FEATURES, num_domains=4).to(DEVICE)
-    optimizer = optim.AdamW(model.parameters(), lr=5e-5, weight_decay=1e-4)  # Lower LR
-    scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=20, T_mult=2)
+    optimizer = optim.AdamW(model.parameters(), lr=5e-4, weight_decay=1e-4)  # 10x higher LR
+    scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2)
     criterion_domain = nn.CrossEntropyLoss()
     
     centers = torch.zeros(2, 512).to(DEVICE)
