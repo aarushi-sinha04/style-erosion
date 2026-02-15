@@ -80,7 +80,7 @@ def predict_dann(model, extractor, t1_batch, t2_batch):
     x2 = torch.tensor(f2, dtype=torch.float32).to(DEVICE)
     with torch.no_grad():
         p, _, _ = model(x1, x2, alpha=0.0)
-    return p.squeeze().cpu().numpy()
+    return p.cpu().numpy().reshape(-1)
 
 def predict_siamese(model, vec, scaler, t1_batch, t2_batch):
     """Batch prediction for Siamese models."""
@@ -92,7 +92,7 @@ def predict_siamese(model, vec, scaler, t1_batch, t2_batch):
     x2 = torch.tensor(v2, dtype=torch.float32).to(DEVICE)
     with torch.no_grad():
         logits = model(x1, x2)
-        probs = torch.sigmoid(logits).squeeze().cpu().numpy()
+        probs = torch.sigmoid(logits).cpu().numpy().reshape(-1)
     return probs
 
 def eval_robust_all():

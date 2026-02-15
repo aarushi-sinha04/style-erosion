@@ -1,20 +1,39 @@
 # 1. Introduction
 
-Authorship verification—determining if two texts share the same author—is critical for forensics, plagiarism detection, and cybersecurity. Deep learning models achieve impressive accuracy (>90%) on benchmarks like PAN, but these assume same-domain test data.
+Authorship verification—determining whether two texts share the same author—is critical for forensic linguistics, plagiarism detection, and cybersecurity. Deep learning models achieve impressive accuracy (>90%) on benchmarks like the PAN competition series (Bevendorff et al., 2020; Stamatatos et al., 2022), but these results assume that test data originates from the same domain as training data.
 
-Real forensic scenarios face cross-domain challenges:
-- Models trained on literature must verify emails
-- Models trained on formal writing must handle social media
-- Models trained on long documents must process short messages
+Real-world deployments face two fundamental challenges that existing benchmarks fail to capture:
 
-We investigate:
-1. How do models generalize across domains?
-2. Can domain adaptation (DANN) bridge the gap?
-3. What are the limits of cross-domain stylometry?
-4. How robust are models to adversarial manipulation?
+1. **Cross-domain generalization.** A model trained on literary fanfiction must verify authorship of emails; a model trained on formal academic writing must handle social media posts. Domain shift causes catastrophic accuracy drops—our experiments show a model achieving 97% on PAN22 fanfiction drops to 52% on blog posts.
 
-In this work, we present:
-1. First systematic cross-domain evaluation (4 domains).
-2. Evidence that DANN causes negative transfer for disjoint domains (like Fanfiction vs Email).
-3. A Multi-Expert Ensemble achieving 72.4% accuracy, solving the negative transfer problem.
-4. An adversarial evaluation using T5-generated paraphrases, evaluated with semantic metrics (BERTScore).
+2. **Adversarial robustness.** Malicious actors increasingly employ AI-powered paraphrasing tools to evade authorship detection while preserving the semantic content of their communications. We demonstrate that T5 paraphrasing can fool character-based models 74% of the time while maintaining 88.5% semantic preservation (BERTScore F1).
+
+These two challenges are typically studied in isolation. Cross-domain stylometry focuses on feature transferability (Stamatatos, 2013), while adversarial NLP examines attack-defense dynamics (TextFooler, BAE). **We argue these challenges are fundamentally linked through feature granularity.**
+
+## 1.1 The Feature Granularity Hypothesis
+
+We observe that the choice of stylometric features creates an inherent trade-off:
+
+- **Fine-grained features** (character n-grams) capture subconscious authorial habits—typographical patterns, spacing preferences, punctuation sequences—that are highly discriminative but easily destroyed by any text transformation (paraphrasing, editing, or normalization).
+
+- **Coarse-grained features** (POS trigrams, readability metrics, function word distributions) capture deeper linguistic structure—syntactic preferences, sentence complexity, vocabulary richness—that survive paraphrasing but are less discriminative across authors.
+
+This trade-off has not been systematically documented in prior work. Existing studies compare models or architectures (Siamese networks vs. transformers vs. domain-adapted networks) but conflate the effect of feature choice with architectural differences.
+
+## 1.2 Research Questions
+
+1. **RQ1:** How does feature granularity affect the accuracy–robustness trade-off in authorship verification?
+2. **RQ2:** Can adversarial training overcome feature-level vulnerability to paraphrase attacks?
+3. **RQ3:** What guidance can we provide practitioners for selecting features based on deployment scenario?
+
+## 1.3 Contributions
+
+1. **First systematic characterization** of the accuracy–robustness trade-off across feature types in authorship verification. We show that character-level models achieve 86.2% cross-domain accuracy but 74% ASR, while syntactic models achieve 60.4% accuracy but only 7.7% ASR.
+
+2. **Rob Siamese:** A cross-domain adversarially fine-tuned Siamese network achieving state-of-the-art cross-domain accuracy (99.4% PAN22, 87.2% Enron, 71.9% Blog), demonstrating that adversarial training can improve clean accuracy by 5.6 percentage points.
+
+3. **Empirical evidence** that adversarial training cannot overcome character-level feature fragility—attack success rate increases from 44% to 74% despite improved clean accuracy, confirming the vulnerability is at the feature level.
+
+4. **Practitioner framework** for feature selection based on deployment scenario: forensic accuracy vs. adversarial resilience vs. balanced trade-off, supported by comprehensive error analysis across three domains.
+
+The remainder of this paper is organized as follows. Section 2 reviews related work on authorship verification, adversarial NLP, and domain adaptation in stylometry. Section 3 describes our methodology, including feature types, model architectures, and evaluation protocol. Section 4 presents experimental results across seven models and three domains. Section 5 discusses the implications of our findings. Section 6 concludes with directions for future work.

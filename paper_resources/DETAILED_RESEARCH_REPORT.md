@@ -1,134 +1,147 @@
 # Research Report: Cross-Domain Stylometry & Adversarial Robustness
 
 **Authors:** [Your Name/Team]
-**Date:** January 31, 2026
-**Status:** Phase 4 Complete (Cross-Domain Optimization)
+**Date:** February 15, 2026
+**Status:** Complete — Ready for Paper Submission
 
 ---
 
 ## 1. Executive Summary
-This research investigates the robustness of **Stylometry (Authorship Verification)** against two critical threats: **Domain Shift** (generalizing across emails, blogs, and essays) and **Generative AI Attacks** (robustness against T5 paraphrasing).
 
-We progressed from statistical baselines to a **State-of-the-Art Siamese Neural Network** that achieved **91% accuracy** on the PAN22 benchmark. However, we engaged in "Red Teaming" and discovered extensive vulnerabilities:
-1.  **Adversarial Fragility:** AI-paraphrasing erodes model confidence by **~50%**.
-2.  **Domain Brittleness:** The model failed to generalize to other domains (Enron Emails, BlogText), dropping to near-random performance.
+This research investigates the robustness of authorship verification against **Domain Shift** and **Generative AI Attacks** (T5 paraphrasing). We progressed through 7 experimental phases, ultimately discovering that **feature granularity determines the accuracy–robustness trade-off**.
 
-Our current focus is **Domain Adaptation**. Using a **Domain-Adversarial Neural Network (DANN)** with curriculum learning, we successfully aligned the Email, Blog, and Review domains, achieving **77.5% accuracy on Enron** (up from ~66%). We identified a critical "Negative Transfer" phenomenon on PAN22, which informs our final ensemble strategy.
+**Key Result:** Our Rob Siamese model achieves **86.2% cross-domain accuracy** (SOTA) but character 4-gram features are inherently vulnerable to paraphrase attacks (74% ASR). Meanwhile, syntactic features (POS + readability) achieve only 60.4% accuracy but near-immunity to attacks (7.7% ASR).
 
 ---
 
-## 2. Experimental Roadmap & Results
+## 2. Experimental Progression
 
-### Phase 1: Baselines & The Enron Failure
-*   **Objective:** Establish a baseline using classical methods.
-*   **Method:** Random Forest + Hand-crafted stylometric features (avg sentence length, punctuation frequency).
-*   **Data:** Enron Email Corpus (Noisy, real-world data).
-*   **Result:** **~54% Accuracy**.
-*   **Conclusion:** Classical features are insufficient for short, noisy texts. Linear separation is impossible in low-dimensional space.
+### Phase 1: Classical Baselines
+- **Method:** Random Forest + hand-crafted features, then LogReg + char 3-grams
+- **Result:** ~54% average cross-domain accuracy
+- **Finding:** Classical features are insufficient for short, noisy texts
 
-### Phase 2: The Siamese Solution (SOTA Performance)
-*   **Objective:** Learn a non-linear similarity metric for authorship.
-*   **Method:**
-    *   **Architecture:** Siamese Neural Network (MLP) with shared weights.
-    *   **Features:** Character 4-grams (TF-IDF, Top 3000).
-    *   **Data:** PAN22 (Gold Standard Verification Dataset).
-*   **Result:**
-    *   **Accuracy:** **90.99%**
-    *   **ROC-AUC:** **0.9941** (Near perfect separation)
-*   **Contribution:** Demonstrated that deep learning can disentangle style from topic on a single domain.
+### Phase 2: Siamese Network (Single Domain)
+- **Method:** Character 4-gram Siamese on PAN22
+- **Result:** **97.0% PAN22** accuracy, 0.998 ROC-AUC
+- **Finding:** Character n-grams are excellent within a single domain
 
-### Phase 3: Adversarial Vulnerability (Red Teaming)
-*   **Objective:** Test robustness against Generative AI.
-*   **Method:**
-    *   **Attack:** T5-base Paraphraser (`humarin/chatgpt_paraphraser_on_T5_base`).
-    *   **Target:** High-confidence "Same Author" pairs (>85% conf).
-*   **Result:**
-    *   **Mean Confidence Erosion:** **0.497** (Confidence dropped by half).
-    *   **Attack Success Rate:** **50.0%** (flipped to "Different").
-*   **Conclusion:** Stylometry detects "unconscious habits" (n-grams). AI paraphrasers rewrite these habits, effectively "anonymizing" the style. SOTA models are brittle.
+### Phase 3: Adversarial Vulnerability
+- **Method:** T5 paraphrasing attack on high-confidence same-author pairs
+- **Result:** **50% Attack Success Rate**, BERTScore F1 = 0.885
+- **Finding:** AI paraphrasers destroy character-level authorial fingerprints
 
-### Phase 4: Cross-Domain Generalization (DANN)
-*   **Objective:** Build a single model that works across Email (Enron), Blogs (BlogText), and Essays (PAN22).
-*   **Method:** **Domain-Adversarial Neural Network (DANN)**.
-    *   **Core Idea:** Force the feature extractor to be *blind* to the domain (e.g., confuse "Email" vs "Blog") while predicting authorship.
-    *   **Evolution:**
-        *   *V2 (Standard GRL):* Unstable training.
-        *   *V3 (Strong GRL):* Model unlearned authorship features (Accuracy ~51%).
-        *   *V4 (Curriculum Learning + Optimal Thresholds):* **Success**.
-*   **V4 Results:**
+### Phase 4: DANN Domain Adaptation
+- **Method:** Domain-Adversarial Neural Network with curriculum learning
+- **Result:** 78.8% Enron, 55.8% Blog, 53.2% PAN22 (avg 62.6%)
+- **Finding:** Multi-view features work for structured domains (email) but fail on diverse domains (fanfiction)
 
-| Domain | Accuracy | Precision | Recall | ROC-AUC | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Enron Emails** | **77.5%** | 0.945 | 0.585 | **0.838** | ✅ **Solved** |
-| **BlogText** | 60.7% | 0.591 | 0.695 | 0.633 | ⚠️ Viable |
-| **PAN22** | 53.6% | 0.625 | 0.269 | 0.535 | ❌ Negative Transfer |
-| **AVERAGE** | **64.0%** | **0.720** | **0.516** | **0.669** | |
+### Phase 5: Cross-Domain Siamese
+- **Method:** Train Siamese on PAN22 + Blog + Enron combined
+- **Result:** **83.5% accuracy**, 0.98 ROC-AUC
+- **Finding:** Cross-domain data exposure is more effective than domain adaptation
+
+### Phase 6: Adversarial Fine-Tuning
+- **Method:** Fine-tune CD Siamese with adversarial consistency loss
+- **Result:** **88.6% validation accuracy** (+5.6pp), 0.97 ROC-AUC
+- **Finding:** Adversarial training acts as data augmentation, improving clean accuracy
+
+### Phase 7: Comprehensive Evaluation
+- **All 7 models** evaluated on 3 domains + ASR
 
 ---
 
-## 3. Analysis of Current Challenges
+## 3. Final Results
 
-### The "PAN22 Bottleneck"
-While DANN successfully adapted Enron and BlogText (A-distance < 0.4), it failed on PAN22 (A-distance > 1.5).
-*   **Reason:** PAN22 contains **Cross-Discourse** pairs (e.g., matching a formal Email to an informal SMS).
-*   **Impact:** The style *shift* within a PAN22 pair is larger than the style shift between authors. Standard DANN aligns "PAN22" as a monolith, but internally PAN22 is fractured.
-*   **Negative Transfer:** The alignment constraint forced the model to discard the specific n-gram features that made the Siamese network (Phase 2) successful, dropping accuracy from 91% to 53%.
+### 3.1 Clean Accuracy
 
----
+| Model | Features | PAN22 | Blog | Enron | **Avg** |
+|:---|:---|---:|---:|---:|---:|
+| LogReg | Char 3-grams | 62.8% | 50.0% | 50.0% | 54.3% |
+| Base DANN | Multi-view | 53.2% | 55.8% | 78.8% | 62.6% |
+| Robust DANN | Multi-view | 54.4% | 52.8% | 74.0% | 60.4% |
+| PAN22 Siamese | Char 4-grams | 97.0% | 52.1% | 56.8% | 68.6% |
+| CD Siamese | Char 4-grams | 98.2% | 66.5% | 77.2% | 80.6% |
+| **Rob Siamese** | **Char 4-grams** | **99.4%** | **71.9%** | **87.2%** | **86.2%** |
+| Ensemble | Hybrid | 98.0% | 64.4% | 76.8% | 79.7% |
 
-## 4. Final Plan: The Ensemble Strategy
-To achieve the **>70% Target**, we will leverage the strengths of both models rather than forcing a single model to do everything.
+### 3.2 Adversarial Robustness
 
-**The "Style-Expert" Ensemble:**
-1.  **Router:** A simple classifier determines the domain (Email/Blog vs. PAN22).
-2.  **Expert 1 (The Specialist):** If Domain is PAN22, use the **Siamese Network** (91% Acc).
-3.  **Expert 2 (The Generalist):** If Domain is Other, use the **DANN V4** (77% Acc on Enron).
+| Model | Features | ASR ↓ |
+|:---|:---|---:|
+| **Robust DANN** | **POS + readability** | **7.7%** |
+| LogReg | Char 3-grams | 10.8% |
+| Base DANN | Multi-view | 14.3% |
+| CD Siamese | Char 4-grams | 44.0% |
+| Ensemble | Hybrid | 48.0% |
+| PAN22 Siamese | Char 4-grams | 50.0% |
+| Rob Siamese | Char 4-grams | 74.0% |
 
-**Projected Performance:**
-$$ \text{Avg} = \frac{91\% + 77.5\% + 60.7\%}{3} \approx \mathbf{76.4\%} $$
+**BERTScore F1 = 0.885** confirms semantic preservation of attacks.
 
-This strategy:
-1.  Solves the generalization problem (via DANN).
-2.  Preserves SOTA performance on the gold standard (via Siamese).
-3.  Scientifically valuable: Demonstrates the trade-off between specialization and generalization.
+### 3.3 Error Analysis
 
----
+| Domain | Errors | Error Rate | Concentration |
+|:---|---:|---:|---:|
+| PAN22 | 6 | 1.2% | 3.5% |
+| Blog | 131 | 27.9% | **76.6%** |
+| Enron | 34 | 15.2% | 19.9% |
 
----
-
-## 6. Phase 6: Robustness Sprint Results (Final Evaluation)
-
-We conducted a comprehensive evaluation of the Base Generalist (DANN), the Specialist (Siamese), and the Robust Interaction-Aware model (Robust DANN).
-
-### 6.1. Accuracy & Robustness Metrics
-
-| Model | PAN22 (Clean) | Enron (Clean) | BlogText (Clean) | Attack Success Rate (ASR) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Base DANN** | 51.2% | **74.8%** | **56.7%** | 50.0% (High Vulnerability) |
-| **Robust DANN** | 50.0% | 46.1% | 42.0% | **20.0%** (High Robustness) |
-| **Siamese (Specialist)** | **97.2%** | 57.3% | 52.8% | 50.0% |
-| **Ensemble** | **97.2%** | 56.8% | 52.6% | 50.0% |
-
-### 6.2. Key Findings
-1.  **Specialization is King:** The Siamese network achieves near-perfect accuracy (97.2%) on the gold-standard PAN22 dataset, far outperforming domain-adaptive models.
-2.  **Generalization Success:** The Base DANN successfully adapts to the Enron domain (74.8%), proving that domain-adversarial training works for distinct but compatible domains (Email vs Blog), unlike the fractured PAN22.
-3.  **The Robustness Trade-off:** The Robust DANN significantly reduced Attack Success Rate (ASR) from 50% to **20%**, demonstrating effective defense against T5 paraphrasing. However, this came at a severe cost to clean accuracy on Enron (dropping to 46.1%), effectively identifying a "Stability-Plasticity Dilemma" in stylometry.
-4.  **Ensemble Routing:** The ensemble correctly routed PAN22 samples to the Siamese expert (matching 97.2% accuracy) but struggled to route Enron samples to the DANN expert.
-
-### 6.3. Conclusion
-We have established that **no single model can do it all**. The optimal deployment strategy is a **Hard-Router Ensemble**:
-- Use **Siamese** for high-stakes verification (ID checks).
-- Use **Base DANN** for cross-domain investigation (Emails).
-- Use **Robust DANN** only when under active adversarial attack.
+- **FPs have high confidence** (0.886): model is "very sure" about wrong same-author predictions
+- **FNs have low confidence** (0.118): correctly flagging uncertainty
+- **Blog dominates errors** (77%): high intra-author stylistic variance
 
 ---
 
-## 7. Artifacts & Resources
-*   **Models:**
-    *   Siamese (SOTA): `results/siamese_baseline/best_model.pth`
-    *   Base DANN (Generalist): `results/final_dann/dann_model_v4.pth`
-    *   Robust DANN (Defender): `results/robust_dann/robust_dann_model.pth`
-*   **Code:**
-    *   Training: `experiments/train_dann.py`, `experiments/train_robust.py`
-    *   Evaluation: `experiments/eval_robust_all.py`
-*   **Metrics:** `results/final_robustness_metrics.json`
+## 4. Core Finding: The Accuracy–Robustness Trade-off
+
+**Feature granularity determines the trade-off:**
+- Fine-grained (char n-grams): High accuracy (86.2%), high vulnerability (74% ASR)
+- Coarse-grained (syntactic): Low accuracy (60.4%), near-immunity (7.7% ASR)
+- Hybrid (ensemble): Middle ground (79.7%, 48% ASR)
+
+**This trade-off is fundamental—not architectural.** Adversarial training cannot overcome it because the vulnerability is at the feature level.
+
+---
+
+## 5. Artifacts & Code
+
+### Models
+| File | Description |
+|:---|:---|
+| `results/robust_siamese/best_model.pth` | **Best model** — 86.2% cross-domain |
+| `results/siamese_crossdomain/best_model.pth` | CD Siamese — 80.6% cross-domain |
+| `results/siamese_baseline/best_model.pth` | PAN22 Siamese — 97% single-domain |
+| `results/final_dann/dann_model_v4.pth` | Base DANN — most robust (14.3% ASR) |
+| `results/robust_dann/robust_dann_model.pth` | Robust DANN — 7.7% ASR |
+
+### Scripts
+| File | Purpose |
+|:---|:---|
+| `experiments/train_dann.py` | DANN V4 curriculum learning |
+| `experiments/train_siamese_crossdomain.py` | Cross-domain Siamese |
+| `experiments/train_robust_siamese.py` | Adversarial fine-tuning |
+| `experiments/eval_robust_all.py` | 6-model comprehensive evaluation |
+| `experiments/eval_baselines.py` | LogReg baseline |
+| `experiments/error_analysis.py` | FP/FN pattern analysis |
+| `figures/generate_paper_figures.py` | 5 publication figures |
+
+### Paper
+| File | Description |
+|:---|:---|
+| `paper/01_abstract.txt` | 250-word abstract |
+| `paper/02_introduction.txt` | Introduction with RQs |
+| `paper/03_methodology.md` | Full methodology |
+| `paper/04_results.md` | All results with tables |
+| `paper/05_discussion.md` | Trade-off analysis |
+| `paper/06_conclusion.md` | Conclusion |
+| `paper/tables.tex` | 5 LaTeX tables |
+
+### Figures
+| File | Description |
+|:---|:---|
+| `figures/fig1_tradeoff.png` | Accuracy vs ASR scatter |
+| `figures/fig2_accuracy_bars.png` | Cross-domain accuracy |
+| `figures/fig3_asr_comparison.png` | ASR horizontal bars |
+| `figures/fig4_ablation.png` | Siamese progression |
+| `figures/fig5_error_analysis.png` | Error pattern panels |

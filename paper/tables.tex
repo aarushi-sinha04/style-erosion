@@ -1,51 +1,96 @@
+% Tables for SCIE Paper: Accuracy-Robustness Trade-off in Authorship Verification
 
+% Table 1: Cross-Domain Clean Accuracy
 \begin{table}[h]
 \centering
-\caption{Cross-Domain Authorship Verification Accuracy}
-\begin{tabular}{lccccc}
+\caption{Cross-Domain Authorship Verification Accuracy (\%). Best results per column in \textbf{bold}.}
+\begin{tabular}{llcccc}
 \hline
-\textbf{Model} & \textbf{PAN22} & \textbf{Blog} & \textbf{Enron} & \textbf{IMDB} & \textbf{Avg} \\
+\textbf{Model} & \textbf{Features} & \textbf{PAN22} & \textbf{Blog} & \textbf{Enron} & \textbf{Avg} \\
 \hline
-Siamese (Single) & 91.0\% & 49.8\% & 52.2\% & - & 64.3\% \\
-DANN & 53.6\% & 60.7\% & 77.5\% & 65.0\% & 64.2\% \\
-\textbf{Multi-Expert (Ours)} & \textbf{98.0\%} & \textbf{71.5\%} & \textbf{79.0\%} & \textbf{68.0\%} & \textbf{79.1\%} \\
+LogReg (baseline) & Char 3-grams & 62.8 & 50.0 & 50.0 & 54.3 \\
+Base DANN & Multi-view & 53.2 & 55.8 & 78.8 & 62.6 \\
+Robust DANN & Multi-view & 54.4 & 52.8 & 74.0 & 60.4 \\
+PAN22 Siamese & Char 4-grams & 97.0 & 52.1 & 56.8 & 68.6 \\
+CD Siamese & Char 4-grams & 98.2 & 66.5 & 77.2 & 80.6 \\
+\textbf{Rob Siamese (ours)} & \textbf{Char 4-grams} & \textbf{99.4} & \textbf{71.9} & \textbf{87.2} & \textbf{86.2} \\
+Ensemble & Hybrid & 98.0 & 64.4 & 76.8 & 79.7 \\
 \hline
 \end{tabular}
-\label{tab:crossdomain}
+\label{tab:accuracy}
 \end{table}
 
-
-
+% Table 2: Adversarial Robustness
 \begin{table}[h]
 \centering
-\caption{Adversarial Attack Evaluation}
-\begin{tabular}{lcc}
+\caption{Attack Success Rate (ASR) under T5 Paraphrase Attack. Lower ASR indicates higher robustness. BERTScore F1 = 0.885 confirms semantic preservation.}
+\begin{tabular}{llccc}
 \hline
-\textbf{Attack Method} & \textbf{Success Rate} & \textbf{BERTScore (F1)} \\
+\textbf{Model} & \textbf{Feature Type} & \textbf{ASR $\downarrow$} & \textbf{Valid Orig} & \textbf{BERTScore} \\
 \hline
-T5 Paraphrase & 56\% & 0.885 \\
-Combined Attack & 60\% & 0.87 \\
+\textbf{Robust DANN} & \textbf{Syntactic (POS, readability)} & \textbf{7.7\%} & 26 & 0.885 \\
+LogReg & Character 3-grams & 10.8\% & 37 & 0.885 \\
+Base DANN & Syntactic & 14.3\% & 35 & 0.885 \\
+CD Siamese & Character 4-grams & 44.0\% & 50 & 0.885 \\
+Ensemble & Hybrid & 48.0\% & 50 & 0.885 \\
+PAN22 Siamese & Character 4-grams & 50.0\% & 50 & 0.885 \\
+Rob Siamese & Character 4-grams & 74.0\% & 50 & 0.885 \\
 \hline
 \end{tabular}
-\label{tab:attacks}
+\label{tab:robustness}
 \end{table}
 
-
-
+% Table 3: Siamese Ablation
 \begin{table}[h]
 \centering
-\caption{Domain Similarity (A-Distance)}
-\begin{tabular}{lc}
+\caption{Siamese Model Ablation: Effect of cross-domain training and adversarial fine-tuning.}
+\begin{tabular}{llccccc}
 \hline
-\textbf{Domain Pair} & \textbf{A-Distance} \\
+\textbf{Stage} & \textbf{Change} & \textbf{PAN22} & \textbf{Blog} & \textbf{Enron} & \textbf{Avg} & \textbf{ASR} \\
 \hline
-PAN22 - BlogText & 1.564 \\
-PAN22 - Enron & 1.612 \\
-PAN22 - IMDB & 1.713 \\
-BlogText - Enron & 0.368 \\
-BlogText - IMDB & 0.287 \\
-Enron - IMDB & 0.178 \\
+PAN22 Siamese & Baseline & 97.0 & 52.1 & 56.8 & 68.6 & 50.0\% \\
+CD Siamese & + Cross-domain data & 98.2 & 66.5 & 77.2 & 80.6 & 44.0\% \\
+Rob Siamese & + Adversarial training & \textbf{99.4} & \textbf{71.9} & \textbf{87.2} & \textbf{86.2} & 74.0\% \\
 \hline
 \end{tabular}
-\label{tab:distance}
+\label{tab:ablation}
+\end{table}
+
+% Table 4: Error Analysis
+\begin{table}[h]
+\centering
+\caption{Error Analysis of Rob Siamese across domains. FP = False Positive, FN = False Negative.}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Domain} & \textbf{Pairs} & \textbf{FP} & \textbf{FN} & \textbf{Errors} & \textbf{Error Rate} & \textbf{FP Conf.} \\
+\hline
+PAN22 & 500 & 5 & 1 & 6 & 1.2\% & -- \\
+Blog & 470 & 71 & 60 & 131 & 27.9\% & 0.886 \\
+Enron & 224 & 16 & 18 & 34 & 15.2\% & -- \\
+\hline
+\textbf{Total} & \textbf{1,194} & \textbf{92} & \textbf{79} & \textbf{171} & \textbf{14.3\%} & 0.886 \\
+\hline
+\end{tabular}
+\label{tab:errors}
+\end{table}
+
+% Table 5: ROC-AUC and F1 Scores
+\begin{table}[h]
+\centering
+\caption{ROC-AUC and F1 Score across domains.}
+\begin{tabular}{l|cc|cc|cc}
+\hline
+& \multicolumn{2}{c|}{\textbf{PAN22}} & \multicolumn{2}{c|}{\textbf{Blog}} & \multicolumn{2}{c}{\textbf{Enron}} \\
+\textbf{Model} & ROC & F1 & ROC & F1 & ROC & F1 \\
+\hline
+LogReg & 0.660 & 0.616 & 0.568 & 0.667 & 0.859 & 0.667 \\
+Base DANN & 0.539 & 0.613 & 0.577 & 0.602 & 0.849 & 0.813 \\
+Robust DANN & 0.559 & 0.603 & 0.551 & 0.611 & 0.791 & 0.783 \\
+PAN22 Siamese & 0.998 & 0.973 & 0.623 & 0.660 & 0.844 & 0.686 \\
+CD Siamese & 1.000 & 0.984 & 0.815 & 0.738 & 0.941 & 0.811 \\
+\textbf{Rob Siamese} & \textbf{1.000} & \textbf{0.995} & \textbf{0.815} & \textbf{0.733} & \textbf{0.943} & \textbf{0.871} \\
+Ensemble & 1.000 & 0.982 & 0.709 & 0.728 & 0.927 & 0.805 \\
+\hline
+\end{tabular}
+\label{tab:metrics}
 \end{table}
