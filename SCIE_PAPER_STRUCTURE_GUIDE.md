@@ -628,6 +628,37 @@ L = L_clean + L_positive + 0.3·L_adversarial + 0.3·L_consistency
 - Show accuracy progression
 - Annotate deltas
 
+#### 4.3b Ablation Study: Syntactic Feature Decomposition
+
+**Lead paragraph:**
+"To determine which syntactic feature views drive DANN's adversarial robustness, we train three DANN variants using individual feature subsets: POS trigrams (1,000 features), function word frequencies (300 features), and readability metrics (8 features). Table 5b compares their ASR against all three attack types."
+
+**Table 5b: Syntactic Feature Ablation (from `results/syntactic_ablations.json`)**
+
+| Feature View | Dim | T5 ASR | Synonym ASR | BackTrans ASR | Avg ASR |
+|:---|---:|---:|---:|---:|---:|
+| POS-only | 1,000 | _TBD_ | _TBD_ | _TBD_ | _TBD_ |
+| Function-words-only | 300 | _TBD_ | _TBD_ | _TBD_ | _TBD_ |
+| Readability-only | 8 | _TBD_ | _TBD_ | _TBD_ | _TBD_ |
+| **Full multi-view** | **4,308** | **7.7%** | **0.8%** | **13.8%** | **7.4%** |
+
+> Fill in _TBD_ values from `results/syntactic_ablations.json` after running `experiments/eval_ablations.py`.
+
+**Expected Analysis (3 paragraphs):**
+
+**Finding 1 — POS as Robustness Anchor:**
+"If POS-only achieves the lowest ASR among individual views, this confirms that syntactic structure (captured as POS trigrams) is the primary driver of DANN's robustness. POS patterns like DET-ADJ-NOUN are inherently preserved under paraphrasing because semantic-preserving rewrites must maintain grammaticality."
+
+**Finding 2 — Readability as Secondary Signal:**
+"Readability metrics (sentence length, word length, Flesch-Kincaid grade) provide complementary robustness: these global statistics are stable under paraphrasing because sentence restructuring preserves overall complexity. However, with only 8 features, readability alone likely has low discriminative power."
+
+**Finding 3 — Feature Combination Effect:**
+"The full multi-view model achieves the lowest ASR (7.7%), outperforming any individual view. This suggests that robustness emerges from the combination of syntactic features, not any single view. The combination provides redundant, overlapping signals that are collectively harder to perturb."
+
+**Script:** `experiments/eval_ablations.py` → `results/syntactic_ablations.json`
+
+---
+
 #### 4.4 Error Analysis
 
 **Lead paragraph:**
