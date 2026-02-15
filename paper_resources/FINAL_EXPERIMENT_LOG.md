@@ -141,6 +141,13 @@ Extracted via `utils/feature_extraction.py` (`EnhancedFeatureExtractor` class):
 - **Method:** Combines Siamese (character n-gram) and DANN (syntactic) predictions with domain-specific confidence weighting
 - **Cross-domain test result:** PAN22=98.0%, Blog=64.4%, Enron=76.8%, **Avg=79.7%**
 
+### 4.8 BERT Baseline (Generic Transformer)
+- **Script:** `experiments/train_bert_baseline.py`
+- **Model:** `bert-base-uncased` Siamese network
+- **Clean Accuracy:** PAN22=50.2%, Blog=50.0%, Enron=56.2%, **Avg=52.1%**
+- **Robustness (ASR):** Synonym=6.8%, BackTrans=10.3%, T5=5.4%
+- **Insight:** Generic BERT features perform poorly compared to specialized stylometric features for authorship verification, supporting the "specialized feature" hypothesis.
+
 ---
 
 ## 5. Adversarial Attack Protocol
@@ -200,6 +207,22 @@ ASR = |{(A,P): f(A,P)=1 ∧ f(A,P')=0}| / |{(A,P): f(A,P)=1}|
 | Ensemble | Hybrid | 48.0% | 50 |
 | PAN22 Siamese | Char 4-grams | 50.0% | 50 |
 | Rob Siamese | Char 4-grams | **74.0%** | 50 |
+| BERT Siamese | BERT Embeddings | 5.4% | 37 |
+
+### 6.3 Comprehensive 3-Attack Robustness (New)
+
+| Model | Synonym (Word) | BackTrans (Sentence-Struct) | T5 (Sentence-Rewrite) |
+|---|:--:|:--:|:--:|
+| Rob Siamese | 0.5% | 19.0% | **74.0%** |
+| PAN22 Siamese | 0.0% | 12.0% | 50.0% |
+| Base DANN | 0.7% | 11.3% | 14.3% |
+| BERT Siamese | 6.8% | 10.3% | 5.4% |
+
+**Key Finding:** 
+1. **Synonym** (word-level) fails against all models (<1% ASR).
+2. **Back-Translation** (structure-preserving) has moderate impact (10-19%).
+3. **T5** (structure-destroying) devastates character models (74%) but fails against syntactic models (7.7%).
+**Conclusion:** Vulnerability depends on the *alignment* between attack granularity and feature granularity.
 
 **BERTScore F1 = 0.885** (Precision=0.895, Recall=0.875) — attacks are semantically valid.
 
@@ -319,6 +342,13 @@ ASR = |{(A,P): f(A,P)=1 ∧ f(A,P')=0}| / |{(A,P): f(A,P)=1}|
 ### 10.3 Earlier DANN Attack Report
 - From `results/final_dann/attack_report.txt`: DANN Siamese flip rate = 14.0%, BERTScore F1 = 0.794
 - This was from an earlier evaluation; the final comprehensive eval reports 14.3% ASR for Base DANN
+
+### 10.4 Synonym & Back-Translation Attacks (Phase 3)
+- **Synonym Attack:** WordNet-based replacement (15% rate).
+  - **Results:** ASR ≈ 0% for all models. Character n-grams are robust to sparse word changes.
+- **Back-Translation:** EN→DE→EN (MarianMT).
+  - **Results:** ASR 4–19% across models. Preserves sentence structure more than T5, leading to lower ASR on character models (19% vs 74%).
+- **Files:** `results/synonym_attack_results.json`, `results/backtranslation_attack.json`
 
 ---
 

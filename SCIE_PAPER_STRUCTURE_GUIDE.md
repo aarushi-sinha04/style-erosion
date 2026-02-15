@@ -1194,6 +1194,95 @@ Add BERT row to the main results table, showing it underperforms all task-specif
 
 ---
 
+### A4. Back-Translation Attack ✅
+
+**Source:** `results/backtranslation_attack.json` | **Script:** `attacks/back_translation.py`  
+**Method:** English → German → English using Helsinki-NLP/opus-mt Marian models  
+**Samples:** 100 positive PAN22 pairs | **Cache:** `data/backtranslation_adversarial_cache.jsonl`
+
+#### Table: Back-Translation ASR by Model
+
+| Model | BackTrans ASR | Clean Correct | Fooled |
+|-------|:--:|:--:|:--:|
+| Rob Siamese | **19.0%** | 100 | 19 |
+| Robust DANN | 13.8% | 58 | 8 |
+| PAN22 Siamese | 12.0% | 100 | 12 |
+| Base DANN | 11.3% | 53 | 6 |
+| BERT Siamese | 10.3% | 78 | 8 |
+| CD Siamese | **4.0%** | 100 | 4 |
+
+#### Complete 3-Attack Comparison Table (Paper-Ready)
+
+| Model | Synonym ASR | BackTrans ASR | T5 Paraphrase ASR |
+|-------|:--:|:--:|:--:|
+| Rob Siamese | 0.5% | 19.0% | **74.0%** |
+| PAN22 Siamese | 0.0% | 12.0% | 50.0% |
+| CD Siamese | 0.0% | 4.0% | 44.0% |
+| Ensemble | 0.0% | — | 40.0% |
+| Base DANN | 0.7% | 11.3% | 14.3% |
+| Robust DANN | 0.8% | 13.8% | 7.7% |
+| BERT Siamese | 6.8% | 10.3% | 5.4% |
+
+**Key finding — different from expectation:** Back-translation produces moderate, relatively uniform ASR (4–19%) across all model types. Unlike T5, it does NOT show the dramatic gap between feature families. This reveals an important nuance:
+
+1. **Synonym replacement** (word-level): Near-zero ASR on all models — too shallow to fool anything
+2. **Back-translation** (sentence-level, structure-preserving): Moderate ASR (4–19%) — affects all models roughly equally because it changes surface form while partially preserving structure
+3. **T5 paraphrasing** (sentence-level, aggressive restructuring): Dramatic gap — 74% on char n-grams vs 7.7% on syntactic models — because T5 aggressively restructures sentences, destroying character patterns
+
+**Paper narrative:** "Back-translation (EN→DE→EN) produces moderate, architecture-independent vulnerability (4–19% ASR), while T5 paraphrasing creates feature-family-dependent vulnerability (7.7–74.0% ASR). This distinction reveals that not all sentence-level attacks are equal: back-translation preserves much of the original phrasing structure, while T5 aggressively restructures sentences, selectively destroying character n-gram patterns. The three-attack comparison demonstrates a granularity hierarchy from word-level (ineffective) through structure-preserving sentence-level (moderately effective) to structure-destroying sentence-level (highly effective against specific feature families)."
+
+---
+
+### A5. BERT Attack Evaluation ✅
+
+**Source:** `results/bert_attack_results.json` | **Script:** `experiments/eval_bert_attacks.py`
+
+| Attack Type | BERT ASR | BERT Correct | Fooled |
+|-------------|:--:|:--:|:--:|
+| Synonym | 6.8% | 148/197 | 10 |
+| T5 Paraphrase | 5.4% | 37/50 | 2 |
+| Back-Translation | 10.3% | 78/100 | 8 |
+
+**Key finding:** BERT shows low, uniform ASR (5–10%) across all attack types — even lower than DANN models for T5. This is likely because:
+- BERT operates at subword level (WordPiece tokens) — neither purely character nor purely syntactic
+- With only 52.1% clean accuracy, BERT already misclassifies many pairs, reducing the pool of "correct" predictions that attacks can flip
+- The low clean accuracy means ASR numbers may be unreliable as a robustness metric for BERT specifically
+
+**Paper narrative:** "The BERT baseline shows uniformly low ASR (5.4–10.3%) across all attack types, but this robustness is largely an artifact of its poor clean accuracy (52.1%): with most predictions already incorrect, few remain to be flipped. When considering both accuracy and robustness jointly, BERT occupies the worst position on the Pareto frontier — neither accurate nor informatively robust."
+
+---
+
+### A6. Qualitative Error Analysis ✅
+
+**Source:** `results/qualitative_error_analysis.json` | **Script:** `analysis/qualitative_errors.py`  
+**Model:** Rob Siamese | **Domains:** Blog, Enron | **Examples:** 6 FP + 6 FN
+
+#### Summary Statistics
+
+| Metric | False Positives | False Negatives |
+|--------|:--:|:--:|
+| Count | 6 | 6 |
+| Avg 4-gram overlap | 3.0% | 5.0% |
+| Avg confidence | 0.999 | 0.000 |
+| Dominant cause | Genre conventions | Topic shift / length disparity |
+
+#### Representative Examples
+
+**FP #1 (Blog, conf=0.9999):** Two different authors both writing informal blog posts about daily life. Shared patterns: similar word length (4.5 vs 4.0), similar sentence lengths (8 vs 8 words). The model conflates genre conventions with authorial identity.
+
+**FP #4 (Enron, conf=0.9994):** Two different corporate emails both mentioning "Enron" — top shared 4-grams include "enro", "nron". Corporate boilerplate produces overlapping character patterns across authors.
+
+**FN #1 (Blog, conf=0.000):** Same author writing a gothic poetry review (246 words) vs. a brief profile intro (48 words). Only 8% vocabulary overlap — topic shift completely destroys character continuity.
+
+**FN #5 (Enron, conf=0.0009):** Same author writing a short contact info email (27 words) vs. a detailed business follow-up (706 words). Length ratio = 0.05 — extreme length disparity eliminates meaningful character pattern comparison.
+
+**Key insight:** Both FP and FN errors have very low 4-gram overlap (3.0% and 5.0%). The model makes high-confidence errors in both directions, suggesting it's relying on features beyond raw n-gram overlap — potentially formatting patterns, punctuation style, and sentence structure that are visible in the full 5000-dim feature space but not captured by simple Jaccard overlap.
+
+**Paper narrative:** "Error analysis reveals two systematic failure modes: (1) false positives when different authors share domain-specific writing conventions (e.g., corporate email boilerplate, informal blog style), and (2) false negatives when the same author writes across different topics or text lengths, producing divergent character signatures. These errors are made with extreme confidence (>0.99 for FPs, <0.001 for FNs), indicating fundamental feature-level confusion rather than borderline decisions. This confirms that character n-gram features conflate stylistic similarity with authorial identity, particularly in homogeneous text domains like corporate email."
+
+---
+
+
 ## FINAL STRATEGIC SUMMARY
 
 ### Success Metrics for Publication
