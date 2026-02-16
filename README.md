@@ -1,6 +1,5 @@
 # From Characters to Syntax: Characterizing the Accuracy–Robustness Trade-off in Cross-Domain Authorship Verification
 
-> **Target:** Q1 SCIE Journal (IEEE TIFS / ACM TIST / Pattern Recognition / Information Sciences)
 
 ## Overview
 
@@ -147,16 +146,6 @@ python figures/generate_paper_figures.py
 | Fig 6 | `fig6_syntactic_ablation.png` | Syntactic feature decomposition (POS / function words / readability) |
 | Fig 7 | `fig7_attack_granularity.png` | Attack granularity hierarchy (word → sentence) |
 
-## Citation
-
-```bibtex
-@article{sinha2026stylometry,
-  title={From Characters to Syntax: Characterizing the Accuracy--Robustness Trade-off in Cross-Domain Authorship Verification},
-  author={Sinha, Aarushi},
-  year={2026},
-  note={Under review}
-}
-```
 
 ## License
 
