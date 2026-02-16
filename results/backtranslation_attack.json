@@ -1,0 +1,38 @@
+{
+  "Base DANN": {
+    "asr": 0.1132,
+    "clean_correct": 53,
+    "attacked_fooled": 6,
+    "total": 100
+  },
+  "Robust DANN": {
+    "asr": 0.1379,
+    "clean_correct": 58,
+    "attacked_fooled": 8,
+    "total": 100
+  },
+  "PAN22 Siamese": {
+    "asr": 0.12,
+    "clean_correct": 100,
+    "attacked_fooled": 12,
+    "total": 100
+  },
+  "CD Siamese": {
+    "asr": 0.04,
+    "clean_correct": 100,
+    "attacked_fooled": 4,
+    "total": 100
+  },
+  "Rob Siamese": {
+    "asr": 0.19,
+    "clean_correct": 100,
+    "attacked_fooled": 19,
+    "total": 100
+  },
+  "BERT Siamese": {
+    "asr": 0.1026,
+    "clean_correct": 78,
+    "attacked_fooled": 8,
+    "total": 100
+  }
+}

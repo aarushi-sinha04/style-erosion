@@ -1,0 +1,759 @@
+{
+  "bootstrap_ci": {
+    "Base DANN|PAN22": {
+      "model": "Base DANN",
+      "domain": "PAN22",
+      "n_samples": 500,
+      "accuracy": {
+        "mean": 0.5061,
+        "lower": 0.464,
+        "upper": 0.548,
+        "std": 0.022
+      },
+      "f1": {
+        "mean": 0.5822,
+        "lower": 0.534,
+        "upper": 0.629,
+        "std": 0.0241
+      },
+      "auc": {
+        "mean": 0.5057,
+        "lower": 0.4538,
+        "upper": 0.5567,
+        "std": 0.0258
+      }
+    },
+    "Robust DANN|PAN22": {
+      "model": "Robust DANN",
+      "domain": "PAN22",
+      "n_samples": 500,
+      "accuracy": {
+        "mean": 0.5159,
+        "lower": 0.474,
+        "upper": 0.56,
+        "std": 0.0218
+      },
+      "f1": {
+        "mean": 0.5647,
+        "lower": 0.5179,
+        "upper": 0.6121,
+        "std": 0.0245
+      },
+      "auc": {
+        "mean": 0.512,
+        "lower": 0.4632,
+        "upper": 0.5623,
+        "std": 0.0251
+      }
+    },
+    "PAN22 Siamese|PAN22": {
+      "model": "PAN22 Siamese",
+      "domain": "PAN22",
+      "n_samples": 500,
+      "accuracy": {
+        "mean": 0.99,
+        "lower": 0.98,
+        "upper": 0.998,
+        "std": 0.0045
+      },
+      "f1": {
+        "mean": 0.9905,
+        "lower": 0.9812,
+        "upper": 0.9981,
+        "std": 0.0043
+      },
+      "auc": {
+        "mean": 0.9981,
+        "lower": 0.9947,
+        "upper": 1.0,
+        "std": 0.0014
+      }
+    },
+    "CD Siamese|PAN22": {
+      "model": "CD Siamese",
+      "domain": "PAN22",
+      "n_samples": 500,
+      "accuracy": {
+        "mean": 0.9837,
+        "lower": 0.972,
+        "upper": 0.994,
+        "std": 0.0056
+      },
+      "f1": {
+        "mean": 0.9846,
+        "lower": 0.9736,
+        "upper": 0.9943,
+        "std": 0.0053
+      },
+      "auc": {
+        "mean": 1.0,
+        "lower": 1.0,
+        "upper": 1.0,
+        "std": 0.0
+      }
+    },
+    "Rob Siamese|PAN22": {
+      "model": "Rob Siamese",
+      "domain": "PAN22",
+      "n_samples": 500,
+      "accuracy": {
+        "mean": 0.9959,
+        "lower": 0.99,
+        "upper": 1.0,
+        "std": 0.0029
+      },
+      "f1": {
+        "mean": 0.9961,
+        "lower": 0.9901,
+        "upper": 1.0,
+        "std": 0.0027
+      },
+      "auc": {
+        "mean": 1.0,
+        "lower": 1.0,
+        "upper": 1.0,
+        "std": 0.0
+      }
+    },
+    "Ensemble|PAN22": {
+      "model": "Ensemble",
+      "domain": "PAN22",
+      "n_samples": 500,
+      "accuracy": {
+        "mean": 0.992,
+        "lower": 0.984,
+        "upper": 0.998,
+        "std": 0.004
+      },
+      "f1": {
+        "mean": 0.9924,
+        "lower": 0.9842,
+        "upper": 0.9982,
+        "std": 0.0038
+      },
+      "auc": {
+        "mean": 0.9999,
+        "lower": 0.9995,
+        "upper": 1.0,
+        "std": 0.0001
+      }
+    },
+    "Base DANN|Blog": {
+      "model": "Base DANN",
+      "domain": "Blog",
+      "n_samples": 480,
+      "accuracy": {
+        "mean": 0.5787,
+        "lower": 0.5333,
+        "upper": 0.6229,
+        "std": 0.0225
+      },
+      "f1": {
+        "mean": 0.6045,
+        "lower": 0.5542,
+        "upper": 0.6521,
+        "std": 0.0257
+      },
+      "auc": {
+        "mean": 0.6114,
+        "lower": 0.5599,
+        "upper": 0.6607,
+        "std": 0.0257
+      }
+    },
+    "Robust DANN|Blog": {
+      "model": "Robust DANN",
+      "domain": "Blog",
+      "n_samples": 480,
+      "accuracy": {
+        "mean": 0.5622,
+        "lower": 0.5146,
+        "upper": 0.6062,
+        "std": 0.0225
+      },
+      "f1": {
+        "mean": 0.6283,
+        "lower": 0.5787,
+        "upper": 0.6738,
+        "std": 0.0237
+      },
+      "auc": {
+        "mean": 0.576,
+        "lower": 0.5194,
+        "upper": 0.626,
+        "std": 0.0262
+      }
+    },
+    "PAN22 Siamese|Blog": {
+      "model": "PAN22 Siamese",
+      "domain": "Blog",
+      "n_samples": 480,
+      "accuracy": {
+        "mean": 0.5124,
+        "lower": 0.4646,
+        "upper": 0.5583,
+        "std": 0.0233
+      },
+      "f1": {
+        "mean": 0.6513,
+        "lower": 0.6052,
+        "upper": 0.6921,
+        "std": 0.0218
+      },
+      "auc": {
+        "mean": 0.5633,
+        "lower": 0.5124,
+        "upper": 0.6135,
+        "std": 0.025
+      }
+    },
+    "CD Siamese|Blog": {
+      "model": "CD Siamese",
+      "domain": "Blog",
+      "n_samples": 480,
+      "accuracy": {
+        "mean": 0.6349,
+        "lower": 0.5896,
+        "upper": 0.6771,
+        "std": 0.0224
+      },
+      "f1": {
+        "mean": 0.7202,
+        "lower": 0.6746,
+        "upper": 0.7594,
+        "std": 0.0207
+      },
+      "auc": {
+        "mean": 0.8082,
+        "lower": 0.7699,
+        "upper": 0.8437,
+        "std": 0.0194
+      }
+    },
+    "Rob Siamese|Blog": {
+      "model": "Rob Siamese",
+      "domain": "Blog",
+      "n_samples": 480,
+      "accuracy": {
+        "mean": 0.7389,
+        "lower": 0.7,
+        "upper": 0.7771,
+        "std": 0.0201
+      },
+      "f1": {
+        "mean": 0.7455,
+        "lower": 0.6996,
+        "upper": 0.7869,
+        "std": 0.0223
+      },
+      "auc": {
+        "mean": 0.8117,
+        "lower": 0.7723,
+        "upper": 0.8464,
+        "std": 0.0194
+      }
+    },
+    "Ensemble|Blog": {
+      "model": "Ensemble",
+      "domain": "Blog",
+      "n_samples": 480,
+      "accuracy": {
+        "mean": 0.6247,
+        "lower": 0.5792,
+        "upper": 0.6667,
+        "std": 0.0225
+      },
+      "f1": {
+        "mean": 0.7164,
+        "lower": 0.672,
+        "upper": 0.7547,
+        "std": 0.0207
+      },
+      "auc": {
+        "mean": 0.7149,
+        "lower": 0.6698,
+        "upper": 0.7584,
+        "std": 0.0231
+      }
+    },
+    "Base DANN|Enron": {
+      "model": "Base DANN",
+      "domain": "Enron",
+      "n_samples": 230,
+      "accuracy": {
+        "mean": 0.7824,
+        "lower": 0.7261,
+        "upper": 0.8348,
+        "std": 0.0275
+      },
+      "f1": {
+        "mean": 0.8037,
+        "lower": 0.7488,
+        "upper": 0.854,
+        "std": 0.0272
+      },
+      "auc": {
+        "mean": 0.8546,
+        "lower": 0.8035,
+        "upper": 0.9051,
+        "std": 0.0258
+      }
+    },
+    "Robust DANN|Enron": {
+      "model": "Robust DANN",
+      "domain": "Enron",
+      "n_samples": 230,
+      "accuracy": {
+        "mean": 0.7215,
+        "lower": 0.6609,
+        "upper": 0.7826,
+        "std": 0.0298
+      },
+      "f1": {
+        "mean": 0.7704,
+        "lower": 0.7138,
+        "upper": 0.8224,
+        "std": 0.0279
+      },
+      "auc": {
+        "mean": 0.7444,
+        "lower": 0.6804,
+        "upper": 0.8124,
+        "std": 0.0331
+      }
+    },
+    "PAN22 Siamese|Enron": {
+      "model": "PAN22 Siamese",
+      "domain": "Enron",
+      "n_samples": 230,
+      "accuracy": {
+        "mean": 0.5811,
+        "lower": 0.5216,
+        "upper": 0.6391,
+        "std": 0.0319
+      },
+      "f1": {
+        "mean": 0.6886,
+        "lower": 0.6312,
+        "upper": 0.743,
+        "std": 0.0299
+      },
+      "auc": {
+        "mean": 0.8458,
+        "lower": 0.7888,
+        "upper": 0.894,
+        "std": 0.0268
+      }
+    },
+    "CD Siamese|Enron": {
+      "model": "CD Siamese",
+      "domain": "Enron",
+      "n_samples": 230,
+      "accuracy": {
+        "mean": 0.7386,
+        "lower": 0.6826,
+        "upper": 0.7957,
+        "std": 0.0289
+      },
+      "f1": {
+        "mean": 0.7847,
+        "lower": 0.7312,
+        "upper": 0.836,
+        "std": 0.027
+      },
+      "auc": {
+        "mean": 0.9353,
+        "lower": 0.8987,
+        "upper": 0.9656,
+        "std": 0.0174
+      }
+    },
+    "Rob Siamese|Enron": {
+      "model": "Rob Siamese",
+      "domain": "Enron",
+      "n_samples": 230,
+      "accuracy": {
+        "mean": 0.8619,
+        "lower": 0.813,
+        "upper": 0.9043,
+        "std": 0.0226
+      },
+      "f1": {
+        "mean": 0.8598,
+        "lower": 0.8089,
+        "upper": 0.9032,
+        "std": 0.0247
+      },
+      "auc": {
+        "mean": 0.9324,
+        "lower": 0.8961,
+        "upper": 0.9631,
+        "std": 0.0175
+      }
+    },
+    "Ensemble|Enron": {
+      "model": "Ensemble",
+      "domain": "Enron",
+      "n_samples": 230,
+      "accuracy": {
+        "mean": 0.7559,
+        "lower": 0.6999,
+        "upper": 0.8087,
+        "std": 0.028
+      },
+      "f1": {
+        "mean": 0.7973,
+        "lower": 0.7431,
+        "upper": 0.8459,
+        "std": 0.0263
+      },
+      "auc": {
+        "mean": 0.8997,
+        "lower": 0.8515,
+        "upper": 0.9364,
+        "std": 0.0209
+      }
+    }
+  },
+  "mcnemar": {
+    "PAN22": {
+      "Base DANN vs Robust DANN": {
+        "b": 49,
+        "c": 54,
+        "chi2": 0.1553,
+        "p_value": 0.693484,
+        "significant": false
+      },
+      "Base DANN vs PAN22 Siamese": {
+        "b": 2,
+        "c": 244,
+        "chi2": 236.1016,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Base DANN vs CD Siamese": {
+        "b": 4,
+        "c": 243,
+        "chi2": 229.3279,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Base DANN vs Rob Siamese": {
+        "b": 2,
+        "c": 247,
+        "chi2": 239.1004,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Base DANN vs Ensemble": {
+        "b": 2,
+        "c": 245,
+        "chi2": 237.1012,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Robust DANN vs PAN22 Siamese": {
+        "b": 3,
+        "c": 240,
+        "chi2": 229.2016,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Robust DANN vs CD Siamese": {
+        "b": 4,
+        "c": 238,
+        "chi2": 224.3347,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Robust DANN vs Rob Siamese": {
+        "b": 2,
+        "c": 242,
+        "chi2": 234.1025,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Robust DANN vs Ensemble": {
+        "b": 3,
+        "c": 241,
+        "chi2": 230.2008,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "PAN22 Siamese vs CD Siamese": {
+        "b": 7,
+        "c": 4,
+        "chi2": 0.3636,
+        "p_value": 0.546494,
+        "significant": false
+      },
+      "PAN22 Siamese vs Rob Siamese": {
+        "b": 1,
+        "c": 4,
+        "chi2": 0.8,
+        "p_value": 0.371093,
+        "significant": false
+      },
+      "PAN22 Siamese vs Ensemble": {
+        "b": 0,
+        "c": 1,
+        "chi2": 0.0,
+        "p_value": 1.0,
+        "significant": false
+      },
+      "CD Siamese vs Rob Siamese": {
+        "b": 0,
+        "c": 6,
+        "chi2": 4.1667,
+        "p_value": 0.041227,
+        "significant": true
+      },
+      "CD Siamese vs Ensemble": {
+        "b": 3,
+        "c": 7,
+        "chi2": 0.9,
+        "p_value": 0.342782,
+        "significant": false
+      },
+      "Rob Siamese vs Ensemble": {
+        "b": 3,
+        "c": 1,
+        "chi2": 0.25,
+        "p_value": 0.617075,
+        "significant": false
+      }
+    },
+    "Blog": {
+      "Base DANN vs Robust DANN": {
+        "b": 38,
+        "c": 30,
+        "chi2": 0.7206,
+        "p_value": 0.395951,
+        "significant": false
+      },
+      "Base DANN vs PAN22 Siamese": {
+        "b": 111,
+        "c": 79,
+        "chi2": 5.0579,
+        "p_value": 0.024514,
+        "significant": true
+      },
+      "Base DANN vs CD Siamese": {
+        "b": 84,
+        "c": 111,
+        "chi2": 3.4667,
+        "p_value": 0.062617,
+        "significant": false
+      },
+      "Base DANN vs Rob Siamese": {
+        "b": 57,
+        "c": 134,
+        "chi2": 30.2408,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Base DANN vs Ensemble": {
+        "b": 77,
+        "c": 99,
+        "chi2": 2.5057,
+        "p_value": 0.113436,
+        "significant": false
+      },
+      "Robust DANN vs PAN22 Siamese": {
+        "b": 85,
+        "c": 61,
+        "chi2": 3.6233,
+        "p_value": 0.056976,
+        "significant": false
+      },
+      "Robust DANN vs CD Siamese": {
+        "b": 59,
+        "c": 94,
+        "chi2": 7.5556,
+        "p_value": 0.005983,
+        "significant": true
+      },
+      "Robust DANN vs Rob Siamese": {
+        "b": 53,
+        "c": 138,
+        "chi2": 36.9424,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Robust DANN vs Ensemble": {
+        "b": 50,
+        "c": 80,
+        "chi2": 6.4692,
+        "p_value": 0.010976,
+        "significant": true
+      },
+      "PAN22 Siamese vs CD Siamese": {
+        "b": 23,
+        "c": 82,
+        "chi2": 32.0381,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "PAN22 Siamese vs Rob Siamese": {
+        "b": 53,
+        "c": 162,
+        "chi2": 54.2512,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "PAN22 Siamese vs Ensemble": {
+        "b": 18,
+        "c": 72,
+        "chi2": 31.2111,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "CD Siamese vs Rob Siamese": {
+        "b": 42,
+        "c": 92,
+        "chi2": 17.9179,
+        "p_value": 2.3e-05,
+        "significant": true
+      },
+      "CD Siamese vs Ensemble": {
+        "b": 14,
+        "c": 9,
+        "chi2": 0.6957,
+        "p_value": 0.404248,
+        "significant": false
+      },
+      "Rob Siamese vs Ensemble": {
+        "b": 99,
+        "c": 44,
+        "chi2": 20.3916,
+        "p_value": 6e-06,
+        "significant": true
+      }
+    },
+    "Enron": {
+      "Base DANN vs Robust DANN": {
+        "b": 21,
+        "c": 7,
+        "chi2": 6.0357,
+        "p_value": 0.014019,
+        "significant": true
+      },
+      "Base DANN vs PAN22 Siamese": {
+        "b": 63,
+        "c": 17,
+        "chi2": 25.3125,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "Base DANN vs CD Siamese": {
+        "b": 33,
+        "c": 23,
+        "chi2": 1.4464,
+        "p_value": 0.229102,
+        "significant": false
+      },
+      "Base DANN vs Rob Siamese": {
+        "b": 16,
+        "c": 34,
+        "chi2": 5.78,
+        "p_value": 0.01621,
+        "significant": true
+      },
+      "Base DANN vs Ensemble": {
+        "b": 24,
+        "c": 18,
+        "chi2": 0.5952,
+        "p_value": 0.440401,
+        "significant": false
+      },
+      "Robust DANN vs PAN22 Siamese": {
+        "b": 49,
+        "c": 17,
+        "chi2": 14.5606,
+        "p_value": 0.000136,
+        "significant": true
+      },
+      "Robust DANN vs CD Siamese": {
+        "b": 23,
+        "c": 27,
+        "chi2": 0.18,
+        "p_value": 0.671373,
+        "significant": false
+      },
+      "Robust DANN vs Rob Siamese": {
+        "b": 17,
+        "c": 49,
+        "chi2": 14.5606,
+        "p_value": 0.000136,
+        "significant": true
+      },
+      "Robust DANN vs Ensemble": {
+        "b": 12,
+        "c": 20,
+        "chi2": 1.5312,
+        "p_value": 0.215925,
+        "significant": false
+      },
+      "PAN22 Siamese vs CD Siamese": {
+        "b": 12,
+        "c": 48,
+        "chi2": 20.4167,
+        "p_value": 6e-06,
+        "significant": true
+      },
+      "PAN22 Siamese vs Rob Siamese": {
+        "b": 12,
+        "c": 76,
+        "chi2": 45.1023,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "PAN22 Siamese vs Ensemble": {
+        "b": 9,
+        "c": 49,
+        "chi2": 26.2241,
+        "p_value": 0.0,
+        "significant": true
+      },
+      "CD Siamese vs Rob Siamese": {
+        "b": 12,
+        "c": 40,
+        "chi2": 14.0192,
+        "p_value": 0.000181,
+        "significant": true
+      },
+      "CD Siamese vs Ensemble": {
+        "b": 7,
+        "c": 11,
+        "chi2": 0.5,
+        "p_value": 0.4795,
+        "significant": false
+      },
+      "Rob Siamese vs Ensemble": {
+        "b": 38,
+        "c": 14,
+        "chi2": 10.1731,
+        "p_value": 0.001425,
+        "significant": true
+      }
+    }
+  },
+  "config": {
+    "n_bootstrap": 1000,
+    "confidence_level": 0.95,
+    "seed": 42,
+    "models": [
+      "Base DANN",
+      "Robust DANN",
+      "PAN22 Siamese",
+      "CD Siamese",
+      "Rob Siamese",
+      "Ensemble"
+    ],
+    "domains": [
+      "PAN22",
+      "Blog",
+      "Enron"
+    ]
+  }
+}

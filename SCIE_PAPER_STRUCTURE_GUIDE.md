@@ -614,13 +614,16 @@ L = L_clean + L_positive + 0.3·L_adversarial + 0.3·L_consistency
 **Finding 5 - The Accuracy-Robustness Frontier:**
 "No model achieves both high accuracy (>80%) and high robustness (<20% ASR). Rob Siamese maximizes accuracy (86.2%) at the cost of robustness (74.0% ASR). Robust DANN maximizes robustness (7.7% ASR) at the cost of accuracy (60.4%). The Ensemble (79.7% accuracy, 48.0% ASR) represents a middle ground. This empirically confirms the trade-off is fundamental, not an artifact of insufficient model capacity or training data."
 
-**Figure 1: Accuracy vs. ASR Scatter Plot (THE CORE SCIENTIFIC FINDING)**
-- X-axis: Attack Success Rate (%)
-- Y-axis: Average Cross-Domain Accuracy (%)
-- Each point is one model
-- Annotate with model names
-- Draw Pareto frontier (no model dominates another)
-- **Caption:** "The accuracy–robustness trade-off. No model achieves both high accuracy and low ASR. Feature granularity (color-coded: blue = char n-grams, red = multi-view, green = hybrid) determines position on the frontier."
+**Figure 1: Accuracy vs. ASR Scatter Plot (THE CORE SCIENTIFIC FINDING)** ✅ Generated
+
+> **File:** `figures/fig1_tradeoff.png` | **Script:** `figures/generate_paper_figures.py::fig1_tradeoff()`
+
+- X-axis: Cross-Domain Accuracy (%)
+- Y-axis: Attack Success Rate (%) — lower is better
+- 8 models plotted (including BERT Siamese baseline)
+- Marker shapes encode feature type: ○ char n-grams, □ syntactic, ◇ hybrid, △ contextual
+- Quadrant annotations: ideal zone (high acc, low ASR) labeled in green
+- **Caption:** "The accuracy–robustness trade-off across eight models. No model achieves both high accuracy (>80%) and high robustness (<20% ASR). Feature granularity—not model architecture—determines position on the frontier. BERT Siamese occupies the worst position: neither accurate (52.1%) nor informatively robust."
 
 #### 4.3 Ablation Study: Siamese Model Progression
 
@@ -646,10 +649,14 @@ L = L_clean + L_positive + 0.3·L_adversarial + 0.3·L_consistency
 **The ASR Paradox Explained:**
 "ASR increases from 44.0% (CD Siamese) to 74.0% (Rob Siamese) despite adversarial training. Both models correctly classify all 50/50 T5 evaluation pairs (same denominator), so the ASR increase is genuine: Rob Siamese is fooled on 37/50 pairs vs. CD Siamese's 22/50. Adversarial training optimized the model for clean accuracy by strengthening character n-gram reliance, but these features are inherently fragile under paraphrasing. The model learned to rely more heavily on character n-grams to boost accuracy, inadvertently increasing vulnerability. This demonstrates that adversarial training cannot overcome feature-intrinsic fragility—it can only optimize within the feature space's inherent trade-off."
 
-**Figure 4: Ablation Visualization**
-- Grouped bar chart: 3 groups (PAN22, Blog, Enron), 3 bars per group (Stage 1, 2, 3)
-- Show accuracy progression
-- Annotate deltas
+**Figure 4: Ablation Visualization** ✅ Generated
+
+> **File:** `figures/fig4_ablation.png` | **Script:** `figures/generate_paper_figures.py::fig4_ablation()`
+
+- 2-panel figure: (a) accuracy progression by domain, (b) ASR progression
+- Panel (a): line plots showing PAN22/Blog/Enron accuracy across 3 stages, with +14.4 pp Blog delta annotation
+- Panel (b): bar chart showing ASR with "Adversarial training paradox: +30 pp" annotation
+- Highlights that accuracy improves monotonically but robustness paradoxically worsens
 
 #### 4.3b Ablation Study: Syntactic Feature Decomposition ✅
 
@@ -686,6 +693,24 @@ L = L_clean + L_positive + 0.3·L_adversarial + 0.3·L_consistency
 
 **Key Takeaway for Paper:** This ablation provides direct evidence for *why* multi-view syntactic features are robust: the robustness is primarily driven by function word distributions (paraphrase-invariant by nature), supplemented by POS structure (partially invariant), with readability providing marginal additional signal. This finding refines the Feature Granularity Hypothesis: it is not merely coarse vs. fine features, but specifically *linguistically-constrained* features (function words that MUST appear in any grammatical rewrite) that drive robustness.
 
+**Figure 6: Syntactic Feature Decomposition** ✅ Generated
+
+> **File:** `figures/fig6_syntactic_ablation.png` | **Script:** `figures/generate_paper_figures.py::fig6_syntactic_ablation()`
+
+- 2-panel figure: (a) accuracy vs avg ASR dual-axis bars per feature view, (b) ASR broken down by attack type
+- Panel (a): dimension annotations (1000d, 300d, 8d, 4308d) overlaid on bars
+- Panel (b): grouped bars showing T5/synonym/back-translation ASR per feature view
+- Key visual: function words (300d) achieve near-full-model robustness (9.2% vs 7.7% avg ASR)
+
+**Figure 7: Attack Granularity Hierarchy** ✅ Generated
+
+> **File:** `figures/fig7_attack_granularity.png` | **Script:** `figures/generate_paper_figures.py::fig7_attack_granularity()`
+
+- Grouped bar chart: 6 models × 3 attack types (synonym, back-translation, T5)
+- Background shading groups models by feature family (char n-grams / syntactic / BERT)
+- Shows the attack escalation hierarchy: word-level (≤0.8%) → sentence-preserving (4–19%) → sentence-destructive (5–74%)
+- Key visual: dramatic T5 ASR gap between char n-gram models (50–74%) and syntactic models (7–14%)
+
 ---
 
 #### 4.4 Error Analysis
@@ -713,10 +738,14 @@ L = L_clean + L_positive + 0.3·L_adversarial + 0.3·L_consistency
 **False Negative Patterns (Model Says "Different Author" But Wrong):**
 "The model makes 79 false negatives, with average confidence of only 0.118—correctly flagging uncertainty. These occur when same-author texts differ drastically in topic, length, or register. For instance, a blogger posting both a 50-character URL link (`Check out this site: [URL]`) and a 1,442-character personal essay produces such different character distributions that the model perceives them as different authors. Of 79 FNs, 60 (76%) occur on Blog. Extreme length ratios (>10:1) are a strong predictor of FNs."
 
-**Figure 5: Error Pattern Visualization (2-panel)**
-- Panel A: Confidence distribution for FP vs. TN (FPs are overconfident)
-- Panel B: Confidence distribution for FN vs. TP (FNs are correctly uncertain)
-- Show that model has some calibration
+**Figure 5: Error Pattern Visualization (3-panel)** ✅ Generated
+
+> **File:** `figures/fig5_error_analysis.png` | **Script:** `figures/generate_paper_figures.py::fig5_error_analysis()`
+
+- Panel (a): Error count by domain — FP vs FN stacked bars (Blog dominates: 71 FP, 60 FN)
+- Panel (b): Rob Siamese accuracy per domain (98.8% PAN22, 72.1% Blog, 84.8% Enron)
+- Panel (c): Confidence by outcome — FPs overconfident (0.886), FNs correctly uncertain (0.118)
+- Key visual: annotated arrow showing FP overconfidence problem
 
 **Total Section 4 length: 2,000–2,500 words + 4 figures + 4 tables**
 

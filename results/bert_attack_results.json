@@ -1,0 +1,20 @@
+{
+  "Synonym": {
+    "asr": 0.0676,
+    "clean_correct": 148,
+    "attacked_fooled": 10,
+    "total": 197
+  },
+  "T5 Paraphrase": {
+    "asr": 0.0541,
+    "clean_correct": 37,
+    "attacked_fooled": 2,
+    "total": 50
+  },
+  "Back-Translation": {
+    "asr": 0.1026,
+    "clean_correct": 78,
+    "attacked_fooled": 8,
+    "total": 100
+  }
+}

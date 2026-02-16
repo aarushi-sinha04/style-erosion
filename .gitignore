@@ -1,5 +1,4 @@
-
-# Python
+# ── Python ──────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -10,54 +9,43 @@ env/
 .venv/
 .ipynb_checkpoints/
 
-# Validations & Testing
+# ── Testing & CI ────────────────────────────────────
 .pytest_cache/
 .mypy_cache/
 .coverage
 htmlcov/
 .tox/
 
-# VS Code
+# ── Editor / OS ─────────────────────────────────────
 .vscode/
-
-# Mac
+.idea/
 .DS_Store
+Thumbs.db
 
-# Datasets (Large files)
-emails.csv
-blogtext.csv
-IMDB Dataset.csv
-*.jsonl
-*.zip
-*.tar.gz
-*.csv
+# ── Raw datasets (large, download separately) ──────
+data/raw/
 
-# Results and Models
-results/
-results_*/
-models/
+# ── Model checkpoints & weights ─────────────────────
+results/checkpoints/
 *.pth
 *.bin
 *.pkl
 *.safetensors
 *.h5
 
-# Machine Learning Artifacts
+# ── ML experiment trackers ──────────────────────────
 wandb/
 runs/
 lightning_logs/
-checkpoint/
 
-# Packaging
+# ── Packaging ───────────────────────────────────────
 build/
 dist/
 *.egg-info/
 
-# Project Specific
-archive/
-legacy/
-paper_resources/*.pdf
-paper_resources/*.docx
-
-# Logs
+# ── Logs ────────────────────────────────────────────
 *.log
+
+# ── Archives ────────────────────────────────────────
+*.zip
+*.tar.gz

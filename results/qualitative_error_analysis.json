@@ -1,0 +1,208 @@
+{
+  "false_positives": [
+    {
+      "domain": "Blog",
+      "type": "false_positive",
+      "confidence": 0.9999,
+      "true_label": "different_author",
+      "predicted_label": "same_author",
+      "text_a_snippet": "PHirST tyme for 'Cmoore' (haha), goin' to pacific mall..(asian fob central, lol)",
+      "text_b_snippet": "urlLink    lookin dazed and confused!&nbsp; urlLink",
+      "char_4gram_overlap": 0.0,
+      "top_shared_4grams": [],
+      "text_a_length": 12,
+      "text_b_length": 6,
+      "explanation": "FP caused by: shared unusual punctuation patterns (..)."
+    },
+    {
+      "domain": "Blog",
+      "type": "false_positive",
+      "confidence": 0.9999,
+      "true_label": "different_author",
+      "predicted_label": "same_author",
+      "text_a_snippet": "Dad's Home! Oh yah, he just got home from Dallas and he'll be here all weekend! He has to work there which really stinks. Anyways, it's getting late(not by some people's clocks) and I'd better go to sleep. Chaio!",
+      "text_b_snippet": "Having to work on Saturdays is horrible esp. when its sunny. I mean it just shouldnt be allowed. Its nice to earn some money, but when its so sunny and all I wanna do is be outside working just isnt fun. I met a cool girl at work today though. She made work a bit more enjoyable. I have to work next Saturday too!! &nbsp; urlLink",
+      "char_4gram_overlap": 0.0463,
+      "top_shared_4grams": [
+        " wor",
+        "work",
+        "ork ",
+        " to ",
+        "and "
+      ],
+      "text_a_length": 39,
+      "text_b_length": 66,
+      "explanation": "FP caused by: similar avg word length (4.5 vs 4.0); similar sentence lengths (8 vs 8 words)."
+    },
+    {
+      "domain": "Blog",
+      "type": "false_positive",
+      "confidence": 0.9998,
+      "true_label": "different_author",
+      "predicted_label": "same_author",
+      "text_a_snippet": "Well, I guess I have a more updated version of IE at home than I do at work, because I am not stuck with the crappy Lo-Fi sh*t.  This looks more like the old.  However, I will admit that the system/pages seem to load faster than before.  At work, it was nothing for it to take 5 minutes to load the blogspot page.",
+      "text_b_snippet": "urlLink    Mother of the groom (auntie Deborah), looking stunning, along with a tearful uncle Perry.  It was a beautiful ceremony.&nbsp; urlLink",
+      "char_4gram_overlap": 0.0379,
+      "top_shared_4grams": [
+        " the",
+        "the ",
+        " it ",
+        "ing ",
+        "look"
+      ],
+      "text_a_length": 63,
+      "text_b_length": 21,
+      "explanation": "FP caused by: shared genre conventions produce similar character patterns despite different authors."
+    },
+    {
+      "domain": "Enron",
+      "type": "false_positive",
+      "confidence": 0.9994,
+      "true_label": "different_author",
+      "predicted_label": "same_author",
+      "text_a_snippet": "Ken Lay and Jeff Skilling were interviewed on CNNfn to discuss the succession \nof Jeff to CEO of Enron.  We have put the interview on IPTV for your viewing \npleasure.  Simply point your web browser to http://iptv.enron.com, click the \nlink for special events, and then choose \"Enron's Succession Plan.\"  The \ninterview will be available every 15 minutes through Friday, Dec. 15.",
+      "text_b_snippet": "Enron in Action can be accessed through the new Community Relations web site at http://cr.enron.com/eia.html .  In this week's issue you will find out information regarding:\n\nEnron Happenings \nBEAR Holiday Fundraiser\n2001 Holiday Shopping Card benefiting the American Cancer Society\nEnron Kids 2001 Holiday Program\nSupport the Museum of Natural Science at the Crate & Barrel Opening Night Preview Par",
+      "char_4gram_overlap": 0.0649,
+      "top_shared_4grams": [
+        "enro",
+        " the",
+        "nron",
+        "the ",
+        " to "
+      ],
+      "text_a_length": 61,
+      "text_b_length": 180,
+      "explanation": "FP caused by: shared unusual punctuation patterns (:); similar avg word length (5.1 vs 5.4)."
+    },
+    {
+      "domain": "Enron",
+      "type": "false_positive",
+      "confidence": 0.9993,
+      "true_label": "different_author",
+      "predicted_label": "same_author",
+      "text_a_snippet": "Team\nHere are my comments on Futures. Very minor comments",
+      "text_b_snippet": "Phillip;\n\nCould you please e-mail me the draw file you created for Bishops Corner.  I\nwas working on submitting it to you and rather then recreate it I should\njust have you send it back to me to fill in the new draw totals.\n\nAlso, I need the vendor payee list that you created for the Land and Soft\ncosts. I need to re-format it by draw number and to the Bank One format, and\nagain it would be easier",
+      "char_4gram_overlap": 0.0029,
+      "top_shared_4grams": [
+        " com",
+        "are ",
+        " on "
+      ],
+      "text_a_length": 10,
+      "text_b_length": 257,
+      "explanation": "FP caused by: shared genre conventions produce similar character patterns despite different authors."
+    },
+    {
+      "domain": "Enron",
+      "type": "false_positive",
+      "confidence": 0.9962,
+      "true_label": "different_author",
+      "predicted_label": "same_author",
+      "text_a_snippet": "Phillip,\n\nI think I still owe someone for that awesome video we made.  How much and who?\n\nThanks,\n\nDon",
+      "text_b_snippet": "John,\n \nSorry to have missed you--I didn't get to my e-mail in time.\n \nDutch filled me in on exactly what I was looking for--thanks very much.\n \nJeff",
+      "char_4gram_overlap": 0.0299,
+      "top_shared_4grams": [
+        "much",
+        "hank",
+        " muc",
+        "anks",
+        " for"
+      ],
+      "text_a_length": 19,
+      "text_b_length": 27,
+      "explanation": "FP caused by: similar avg word length (4.2 vs 4.3); similar sentence lengths (6 vs 9 words)."
+    }
+  ],
+  "false_negatives": [
+    {
+      "domain": "Blog",
+      "type": "false_negative",
+      "confidence": 0.0,
+      "true_label": "same_author",
+      "predicted_label": "different_author",
+      "text_a_snippet": "One of the best Gothic poetry sites on the web, in my opinion, is this one:  urlLink http://www.ravensrants.com/index.html   Raven's poetry is brilliant, breaking the gothic poetry stereotype...everyone thinks gothic poetry = poems about death.  Crystal Night  I walked out one crystal night and the air was cold and black every star held bright and true against it's midnight back The moon hung low ",
+      "text_b_snippet": "First, you should read my profile. Having done that, we can proceed... This is mainly a place to collect all my favorite quotes, poetry, some of mine included, and websites I like... I am a large mix of many personalities and talents... this could be an interesting trip...",
+      "char_4gram_overlap": 0.0686,
+      "text_a_length": 246,
+      "text_b_length": 48,
+      "explanation": "FN caused by: extreme vocabulary divergence (only 8% word overlap); large length disparity (ratio=0.21)."
+    },
+    {
+      "domain": "Blog",
+      "type": "false_negative",
+      "confidence": 0.0,
+      "true_label": "same_author",
+      "predicted_label": "different_author",
+      "text_a_snippet": "I'm really tired now, I've been doing yard work for just about all day. Mowing, Trimming,  and Pruning. Sure I had help, but I still feel like falling over and sleeping. But alas, I have some things to do.  I'm in the process of converting a table layout to XHTML and CSS (tableless). Its not too easy, but with  urlLink glish's amazing CSS layouts  as a guide, I'm managing.  Before I finish, I just",
+      "text_b_snippet": "My new site is at  urlLink http://www.hamstu.blissdev.com",
+      "char_4gram_overlap": 0.014,
+      "text_a_length": 98,
+      "text_b_length": 7,
+      "explanation": "FN caused by: extreme vocabulary divergence (only 1% word overlap); large length disparity (ratio=0.11); very low 4-gram overlap (1.4%) \u2014 topic shift destroys character patterns."
+    },
+    {
+      "domain": "Blog",
+      "type": "false_negative",
+      "confidence": 0.0,
+      "true_label": "same_author",
+      "predicted_label": "different_author",
+      "text_a_snippet": "Does anyone know anything about this subject?? Can you iron Velveteen?? For the love of god, someone please let me know! *snicker*  I will post later today. Need to get my thoughts in order and I have been harping on a particular subject for a half an hour. It needs a break. But, I am positive that it will rear it's ugly head again and then you all will get an ear full. So, all I have to say is..B",
+      "text_b_snippet": "urlLink    As promised the *BOOM* brothers.  On Gramma and Grumpa's Ranch in Montana! &nbsp; urlLink",
+      "char_4gram_overlap": 0.0143,
+      "text_a_length": 105,
+      "text_b_length": 15,
+      "explanation": "FN caused by: extreme vocabulary divergence (only 4% word overlap); large length disparity (ratio=0.19); very low 4-gram overlap (1.4%) \u2014 topic shift destroys character patterns."
+    },
+    {
+      "domain": "Enron",
+      "type": "false_negative",
+      "confidence": 0.0008,
+      "true_label": "same_author",
+      "predicted_label": "different_author",
+      "text_a_snippet": "Meeting Attendees from Continental Airlines:\nGreg Hartford, Vice President, Fuel Management \nRon Howard, Vice President, Food Services\nLarry Kellner, Chief Financial Officer\n\nMeeting Attendees from Enron:\nCraig Breslau, Vice President, Enron North America\nSarah-Joy Hunter, Manager, Global Strategic Sourcing\nJohn Nowlan, Vice President, Enron Global Markets\nJeff Shankman, President and COO, Enron G",
+      "text_b_snippet": "John:\n\nGood Morning!\n\nPer our conversation yesterday, you had noted that John Pattillo would be \ngetting back to you with his decision as to how he would approach FEDEX with \nan Enron counteroffer.   Any news on this?  \n\nAlso, thanks for leaving voicemail/e-mail messages to keep me in the loop \nregarding:\n\na) John Pattillo's decision 12/14;\nb) Carmen's feedback by close of business Monday 12/18\nc)",
+      "char_4gram_overlap": 0.0574,
+      "text_a_length": 150,
+      "text_b_length": 110,
+      "explanation": "FN caused by: extreme vocabulary divergence (only 7% word overlap)."
+    },
+    {
+      "domain": "Enron",
+      "type": "false_negative",
+      "confidence": 0.0009,
+      "true_label": "same_author",
+      "predicted_label": "different_author",
+      "text_a_snippet": "Jennifer,\n\nESM - Enterprise Sales Manager\nPS- Dave Bennett Area Professional Services Manager\n\nBob Jordan\nRio Grande Area Director\nCompaq Computer Corporation\n\nTele #281-927-6350\nFax #281-514-7220\nBob.Jordan@Compaq.com",
+      "text_b_snippet": "Jennifer,\n\nThanks for hosting the meeting yesterday. Sorry I had to leave but I had to\nmeet with Beth Pearlman. I believe there was a lot of good information\nexchanged and that is why we ran so late. I certainly came away with a\ndifferent insight to Enron that I did not have before we met.\n\nRegarding the relationship between Compaq and Enron, I need to make some\nthings are very clear in our go for",
+      "char_4gram_overlap": 0.055,
+      "text_a_length": 27,
+      "text_b_length": 706,
+      "explanation": "FN caused by: extreme vocabulary divergence (only 5% word overlap); large length disparity (ratio=0.05)."
+    },
+    {
+      "domain": "Enron",
+      "type": "false_negative",
+      "confidence": 0.0011,
+      "true_label": "same_author",
+      "predicted_label": "different_author",
+      "text_a_snippet": "Hi John,\n\n\nHere is your report for today. \n\nI also need to get your opinion on the following matter. \n\nWe have been  working on a new look and feel for EnronOnline that includes expanded order functionality. This was expected to be released sometime in January. We think going ahead will act as an indicator that as far as our core businesses are concerned it is business as usual and we are contiuin",
+      "text_b_snippet": "Hi John,\n\nWe are taking a look at that as well as orders for options. Will let you know when that can be available.\n\nSavita",
+      "char_4gram_overlap": 0.0919,
+      "text_a_length": 125,
+      "text_b_length": 25,
+      "explanation": "FN caused by: extreme vocabulary divergence (only 15% word overlap); large length disparity (ratio=0.18)."
+    }
+  ],
+  "summary": {
+    "n_fp_examples": 6,
+    "n_fn_examples": 6,
+    "avg_fp_4gram_overlap": 0.0303,
+    "avg_fn_4gram_overlap": 0.0502,
+    "model": "Rob Siamese",
+    "domains_analyzed": [
+      "Blog",
+      "Enron"
+    ],
+    "insight": "FPs have higher character n-gram overlap than FNs, confirming that the model over-relies on surface-level lexical similarity. FNs occur when same-author texts span different topics/registers, producing divergent character patterns despite shared authorial style."
+  }
+}

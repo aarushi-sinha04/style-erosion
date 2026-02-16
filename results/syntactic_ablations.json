@@ -1,0 +1,117 @@
+{
+  "pos_only": {
+    "t5": {
+      "asr": 0.2842,
+      "successful_attacks": 27,
+      "total_valid": 95,
+      "total_samples": 100,
+      "errors": 0
+    },
+    "synonym": {
+      "asr": 0.0109,
+      "successful_attacks": 2,
+      "total_valid": 184,
+      "total_samples": 197,
+      "errors": 0
+    },
+    "backtrans": {
+      "asr": 0.1398,
+      "successful_attacks": 13,
+      "total_valid": 93,
+      "total_samples": 100,
+      "errors": 0
+    }
+  },
+  "function_only": {
+    "t5": {
+      "asr": 0.1549,
+      "successful_attacks": 11,
+      "total_valid": 71,
+      "total_samples": 100,
+      "errors": 0
+    },
+    "synonym": {
+      "asr": 0.0,
+      "successful_attacks": 0,
+      "total_valid": 150,
+      "total_samples": 197,
+      "errors": 0
+    },
+    "backtrans": {
+      "asr": 0.1205,
+      "successful_attacks": 10,
+      "total_valid": 83,
+      "total_samples": 100,
+      "errors": 0
+    }
+  },
+  "readability_only": {
+    "t5": {
+      "asr": 0.5556,
+      "successful_attacks": 10,
+      "total_valid": 18,
+      "total_samples": 100,
+      "errors": 0
+    },
+    "synonym": {
+      "asr": 0.0,
+      "successful_attacks": 0,
+      "total_valid": 20,
+      "total_samples": 197,
+      "errors": 0
+    },
+    "backtrans": {
+      "asr": 0.2857,
+      "successful_attacks": 2,
+      "total_valid": 7,
+      "total_samples": 100,
+      "errors": 0
+    }
+  },
+  "full_baseline": {
+    "t5": {
+      "asr": 0.0847,
+      "successful_attacks": 5,
+      "total_valid": 59,
+      "total_samples": 100,
+      "errors": 0
+    },
+    "synonym": {
+      "asr": 0.0079,
+      "successful_attacks": 1,
+      "total_valid": 127,
+      "total_samples": 197,
+      "errors": 0
+    },
+    "backtrans": {
+      "asr": 0.1379,
+      "successful_attacks": 8,
+      "total_valid": 58,
+      "total_samples": 100,
+      "errors": 0
+    }
+  },
+  "full_base_dann": {
+    "t5": {
+      "asr": 0.1781,
+      "successful_attacks": 13,
+      "total_valid": 73,
+      "total_samples": 100,
+      "errors": 0
+    },
+    "synonym": {
+      "asr": 0.0072,
+      "successful_attacks": 1,
+      "total_valid": 138,
+      "total_samples": 197,
+      "errors": 0
+    },
+    "backtrans": {
+      "asr": 0.1132,
+      "successful_attacks": 6,
+      "total_valid": 53,
+      "total_samples": 100,
+      "errors": 0
+    }
+  }
+}

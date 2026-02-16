@@ -1,0 +1,477 @@
+{
+  "domain_stats": {
+    "PAN22": {
+      "tp": 256,
+      "tn": 238,
+      "fp": 5,
+      "fn": 1,
+      "n_pairs": 500
+    },
+    "Blog": {
+      "tp": 175,
+      "tn": 164,
+      "fp": 71,
+      "fn": 60,
+      "n_pairs": 470
+    },
+    "Enron": {
+      "tp": 94,
+      "tn": 96,
+      "fp": 16,
+      "fn": 18,
+      "n_pairs": 224
+    }
+  },
+  "false_positives": [
+    {
+      "domain": "PAN22",
+      "true_label": 0,
+      "pred_prob": 0.694100022315979,
+      "overlap": 0.1285,
+      "len_a": 5000,
+      "len_b": 2154,
+      "len_ratio": 2.32,
+      "text_a_snippet": "over the last few years emne\u2019s have become more prominent within the globalised world we now live in",
+      "text_b_snippet": "<addr12_fn>,<nl><nl>i can only apologise. i\u2019m really sorry, usually i cancel before the allocated sl"
+    },
+    {
+      "domain": "PAN22",
+      "true_label": 0,
+      "pred_prob": 0.979200005531311,
+      "overlap": 0.0552,
+      "len_a": 5000,
+      "len_b": 559,
+      "len_ratio": 8.93,
+      "text_a_snippet": "assess the performance of any president of the united states in the context of the respective period",
+      "text_b_snippet": "have submitted a form explaing the issues which the marker should take into account xx<new><pers_nn>"
+    },
+    {
+      "domain": "PAN22",
+      "true_label": 0,
+      "pred_prob": 0.9994000196456909,
+      "overlap": 0.0658,
+      "len_a": 2032,
+      "len_b": 559,
+      "len_ratio": 3.63,
+      "text_a_snippet": "hello, i have found some information regarding your helsinki trip and wanted to share this with you.",
+      "text_b_snippet": "hink i\u2019m only worried that with that aren\u2019t the eggs more viable if frozen once fertilised....?<new>"
+    },
+    {
+      "domain": "PAN22",
+      "true_label": 0,
+      "pred_prob": 0.8719000220298767,
+      "overlap": 0.0558,
+      "len_a": 2192,
+      "len_b": 579,
+      "len_ratio": 3.78,
+      "text_a_snippet": "<addr3_fn>,<nl><nl> <nl><nl>just following up my previous email, are you available to meet at all?<n",
+      "text_b_snippet": "s cuz tbeyre all out<new>if it was just one or two then the price would be \u00a310+<new>the roads are so"
+    },
+    {
+      "domain": "PAN22",
+      "true_label": 0,
+      "pred_prob": 0.9807999730110168,
+      "overlap": 0.0458,
+      "len_a": 2137,
+      "len_b": 637,
+      "len_ratio": 3.35,
+      "text_a_snippet": "hi sophie, i have compiled a itinerary of all the things you would want to do on your trip to helsin",
+      "text_b_snippet": "dated and elitist<new>\ud83d\ude42\ud83d\ude42\ud83d\ude42\ud83d\ude42\ud83d\ude42\ud83d\ude42<new>right<new>the<new>\u2018pov\u2019<new>wth<new>don\u2019t let the bed bugs bight<ne"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.54339998960495,
+      "overlap": 0.0526,
+      "len_a": 283,
+      "len_b": 1519,
+      "len_ratio": 5.35,
+      "text_a_snippet": "i'm not exactly holding the fort either, work has exploded into a hideous cocktail of 30 different t",
+      "text_b_snippet": "hello! the fiesta was fun. me and lynne saw many bands and people. we saw rachel stevens, big brovaz"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9958999752998352,
+      "overlap": 0.1898,
+      "len_a": 3062,
+      "len_b": 2995,
+      "len_ratio": 1.02,
+      "text_a_snippet": "life has suddenly become hectic. the title of this post is so accurate. i've suddenly become booked ",
+      "text_b_snippet": "ah yes, the summer olympics are now halfway over. i've settled into the familiar routine of watching"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9391000270843506,
+      "overlap": 0.0564,
+      "len_a": 451,
+      "len_b": 2759,
+      "len_ratio": 6.1,
+      "text_a_snippet": "ready...aim... --> 'titans: variety reports that new line has picked up this pitch from 'the hulk' w",
+      "text_b_snippet": "mornin, y'all. interesting bits in the news this morning. first off, over 750 fell sick while visiti"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9911999702453613,
+      "overlap": 0.063,
+      "len_a": 414,
+      "len_b": 4158,
+      "len_ratio": 10.02,
+      "text_a_snippet": "i must keep up with this journal.. thats the whole point of having one, right? i graduated last week",
+      "text_b_snippet": "for shear genius, urllink foucault's pendulum swings ellispse's around the da vinci code . the prota"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.5656999945640564,
+      "overlap": 0.0351,
+      "len_a": 389,
+      "len_b": 264,
+      "len_ratio": 1.47,
+      "text_a_snippet": "fatigue reverberate though the ear deep lines of wrinkles carved in depth dark lines embedded by the",
+      "text_b_snippet": "i made the umbilical cord hat from s'nb for a friend's new baby this evening. it's nice to know ther"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9930999875068665,
+      "overlap": 0.1292,
+      "len_a": 2306,
+      "len_b": 1393,
+      "len_ratio": 1.65,
+      "text_a_snippet": "salut! here's the update on this week's going ons for tuesday june 22nd. 1) to log on to your accoun",
+      "text_b_snippet": "war is every why are we so fixated with it?? its in present life, history lessons n now english less"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9994999766349792,
+      "overlap": 0.0212,
+      "len_a": 106,
+      "len_b": 372,
+      "len_ratio": 3.48,
+      "text_a_snippet": "urllink it was great to watch this photo being taken, i'm really glad it turned out so well.&nbsp; u",
+      "text_b_snippet": "'this guy lives on the 10th floor. every morning he gets the elevator down to the 1st floor and goes"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.5202999711036682,
+      "overlap": 0.0642,
+      "len_a": 661,
+      "len_b": 864,
+      "len_ratio": 1.31,
+      "text_a_snippet": "lacuna coil. i suppose i am the last person to hear this group, but i just did so recently. they ble",
+      "text_b_snippet": "yeehaw!, on saturday morning at the bright and earlier time of 8am, my big toe toenail was removed f"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9624999761581421,
+      "overlap": 0.0142,
+      "len_a": 868,
+      "len_b": 57,
+      "len_ratio": 14.97,
+      "text_a_snippet": "my dad died tonight. 7:03 pm. he wasn't my birth dad, but he adopted me when he married my mom, i wa",
+      "text_b_snippet": "david's in england [april told me] and i really miss him."
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9803000092506409,
+      "overlap": 0.1212,
+      "len_a": 1011,
+      "len_b": 2414,
+      "len_ratio": 2.39,
+      "text_a_snippet": "lately i've been having the more boring lame dreams ever. being stuck trying to turn right at a coun",
+      "text_b_snippet": "starting tuesday we have exams, so i've been having to do exam reviews all weekend. i did do more th"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.6721000075340271,
+      "overlap": 0.024,
+      "len_a": 2515,
+      "len_b": 140,
+      "len_ratio": 17.84,
+      "text_a_snippet": "so this week i took a break from doing absolutely nothing with my life to go to linuxworld and try t",
+      "text_b_snippet": "my internet keeps, disconnecting, then reconnecting. usually only once or twice a day for about 30 s"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.605400025844574,
+      "overlap": 0.1799,
+      "len_a": 3270,
+      "len_b": 2858,
+      "len_ratio": 1.14,
+      "text_a_snippet": "current music: could it be magic - donna summer feeling: blah ok, i'm late. yeah and posting here si",
+      "text_b_snippet": "well i'm not sure what a blog is and so this will be me figuring it out as i go. lol of all things i"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.6891000270843506,
+      "overlap": 0.0216,
+      "len_a": 1349,
+      "len_b": 149,
+      "len_ratio": 8.99,
+      "text_a_snippet": "ok ok in my last blog which was a few minutes ago, i forgot to give a hot topic and a joke and i for",
+      "text_b_snippet": "if you're interested in anime, don't forget to checkout urllink http://www.anime-industry.com . i ju"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.7429999709129333,
+      "overlap": 0.0181,
+      "len_a": 325,
+      "len_b": 292,
+      "len_ratio": 1.11,
+      "text_a_snippet": "i am a candle burning bright, to light your way on darkest nights your path you choose, you take you",
+      "text_b_snippet": "yep, i'm done with all 14 days of summer school now and (hopefully) have credit for communication ap"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 0,
+      "pred_prob": 0.9993000030517578,
+      "overlap": 0.135,
+      "len_a": 1631,
+      "len_b": 3106,
+      "len_ratio": 1.9,
+      "text_a_snippet": "my sister-in-law had an embroidered pillow which rested on her white loveseat which sat in an area o",
+      "text_b_snippet": "i'm so obsessed with knitting, i decided i needed a spot where i could track my finished projects, m"
+    }
+  ],
+  "false_negatives": [
+    {
+      "domain": "PAN22",
+      "true_label": 1,
+      "pred_prob": 0.04969999939203262,
+      "overlap": 0.1066,
+      "len_a": 5000,
+      "len_b": 2096,
+      "len_ratio": 2.38,
+      "text_a_snippet": "employee relations is a socio-economic exchange between employer and employee with an agreement set ",
+      "text_b_snippet": "<addr10_fn>,<nl><nl>i have a meeting with yourself tomorrow at 12:00 but something has come up and i"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 9.999999747378752e-05,
+      "overlap": 0.0839,
+      "len_a": 1938,
+      "len_b": 557,
+      "len_ratio": 3.47,
+      "text_a_snippet": "i enjoyed watching todd hamilton win the british open, its hard not to be happy for someone like him",
+      "text_b_snippet": "sorry that i have not been updating this site very faithfully lately. if i do this, i have to do it "
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.0,
+      "overlap": 0.0255,
+      "len_a": 5000,
+      "len_b": 227,
+      "len_ratio": 21.93,
+      "text_a_snippet": "if you ever see a random title, it's my opinions of the teams on each leg of the race. and it's star",
+      "text_b_snippet": "urllink linda ruiz and karen heins, best friends and bowling partners from palmdale, california. lin"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.013199999928474426,
+      "overlap": 0.1463,
+      "len_a": 2802,
+      "len_b": 1690,
+      "len_ratio": 1.66,
+      "text_a_snippet": "(actually from 7.4.04) i have just had a revolutionary concept...every sunday i will give you my opi",
+      "text_b_snippet": "today was much more relaxing than yesterday, except not being able to get to sleep until 4:30 (i thi"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.002099999925121665,
+      "overlap": 0.0911,
+      "len_a": 1899,
+      "len_b": 803,
+      "len_ratio": 2.36,
+      "text_a_snippet": "friday night alexander and noam met. i, however, was too drunk to pull off anything graceful, and co",
+      "text_b_snippet": "looking forward to germany like chemotherapy--you solve one problem at the expense of loosing your h"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.30379998683929443,
+      "overlap": 0.0541,
+      "len_a": 2870,
+      "len_b": 534,
+      "len_ratio": 5.36,
+      "text_a_snippet": "very interesting urllink stuff brewing in the african-american community. just when you thought it w",
+      "text_b_snippet": "when the rain comes they run and hide their heads. they might as well be dead, when the rain comes, "
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.243599995970726,
+      "overlap": 0.0814,
+      "len_a": 3065,
+      "len_b": 1340,
+      "len_ratio": 2.29,
+      "text_a_snippet": "so i call courtney..his brother tells me to phone back..again. sure thing *rolls eyez* then courtney",
+      "text_b_snippet": "some people live for the fortune some people live just for the fame some people live for the power, "
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.07169999927282333,
+      "overlap": 0.0347,
+      "len_a": 220,
+      "len_b": 1295,
+      "len_ratio": 5.86,
+      "text_a_snippet": "' life isn't a journey to the grave with the intentions of arriving safely in a pretty & well preser",
+      "text_b_snippet": "one of the best gothic poetry sites on the web, in my opinion, is this one: urllink http://www.raven"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.0,
+      "overlap": 0.0117,
+      "len_a": 1442,
+      "len_b": 50,
+      "len_ratio": 28.27,
+      "text_a_snippet": "okay, so i said i was going to write down my thoughts, but i have decided to just let it go. *uhmmmm",
+      "text_b_snippet": "urllink just cus, one wasn't enough!&nbsp; urllink"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.2612999975681305,
+      "overlap": 0.0935,
+      "len_a": 888,
+      "len_b": 556,
+      "len_ratio": 1.59,
+      "text_a_snippet": "today we had bible study after school. quite boring as had a long day. everything was boring except ",
+      "text_b_snippet": "now is dbms prac. i finish prac6 le, so here i come. entertain myself first before doing prac7. toda"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.2215999960899353,
+      "overlap": 0.114,
+      "len_a": 2199,
+      "len_b": 1068,
+      "len_ratio": 2.06,
+      "text_a_snippet": "i wrote this out all interestin n happy n then lost it. now i dnt hav energy to do it again. went ca",
+      "text_b_snippet": "actualy im gona carry on writin cos now i feel even shiter and cryin again. y do i put up with so mu"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.3212999999523163,
+      "overlap": 0.1206,
+      "len_a": 1030,
+      "len_b": 1303,
+      "len_ratio": 1.26,
+      "text_a_snippet": "woke up at around 10 (not exactly, cos dad woke me up) grrr.... still wanted to sleep but since he w",
+      "text_b_snippet": "yippie!! at last i have decided to have my own blog!! ok lets see what i have been doing for the pas"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.005400000140070915,
+      "overlap": 0.0592,
+      "len_a": 401,
+      "len_b": 3885,
+      "len_ratio": 9.66,
+      "text_a_snippet": "i often wondered where the restauranteurs heated up the briquettes or brinks or rocks that they plac",
+      "text_b_snippet": "in any developing country (and i believe korea is 'developing' and really only started on the road t"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 9.999999747378752e-05,
+      "overlap": 0.0669,
+      "len_a": 276,
+      "len_b": 317,
+      "len_ratio": 1.14,
+      "text_a_snippet": "friends are like ships anchored their lines by the harbor each secrete their own goods revealing onl",
+      "text_b_snippet": "'flashes of life' the winds blew the memories of the dead the past flashes like a train emotions swe"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.0012000000569969416,
+      "overlap": 0.0666,
+      "len_a": 1502,
+      "len_b": 888,
+      "len_ratio": 1.69,
+      "text_a_snippet": "haiz...yesterday slept damn late la..cos install the visual basic..so freaking long sia..damn la..de",
+      "text_b_snippet": "today we had bible study after school. quite boring as had a long day. everything was boring except "
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.1542000025510788,
+      "overlap": 0.0913,
+      "len_a": 807,
+      "len_b": 746,
+      "len_ratio": 1.08,
+      "text_a_snippet": "ok, i have this awesome computer with a dvd burner +-. it is absolutely the most complex piece of ma",
+      "text_b_snippet": "today, me and brian went and got photo's taken. it was really fun. the photographer accused me of pr"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.02459999918937683,
+      "overlap": 0.1627,
+      "len_a": 1461,
+      "len_b": 2827,
+      "len_ratio": 1.93,
+      "text_a_snippet": "well, i'm not usually one to follow the sheep but in this case i did! it started out innocently enou",
+      "text_b_snippet": "the doctor told me to get some ice and sit with foot up. i knew peter (my mgr.) wasn't going to take"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.2442999929189682,
+      "overlap": 0.0094,
+      "len_a": 2036,
+      "len_b": 83,
+      "len_ratio": 24.24,
+      "text_a_snippet": "i'm no model-material but i must say i love posing for pictures . hehe. that is why i am trying out ",
+      "text_b_snippet": "urllink me. at the backstage between concerts at the wvsucc, iloilo. &nbsp; urllink"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.3425000011920929,
+      "overlap": 0.1257,
+      "len_a": 1684,
+      "len_b": 1445,
+      "len_ratio": 1.16,
+      "text_a_snippet": "my boss where i waitress told me the most moving story yesterday. picture this guy, jay. he's nigeri",
+      "text_b_snippet": "i used to think i'd whore my poetic tapestry to the first taker. now i know it's not true. rather: i"
+    },
+    {
+      "domain": "Blog",
+      "true_label": 1,
+      "pred_prob": 0.001500000013038516,
+      "overlap": 0.0498,
+      "len_a": 398,
+      "len_b": 1684,
+      "len_ratio": 4.22,
+      "text_a_snippet": "i have eaten the plums that were in the icebox and which you were probably saving for breakfast forg",
+      "text_b_snippet": "my boss where i waitress told me the most moving story yesterday. picture this guy, jay. he's nigeri"
+    }
+  ],
+  "summary": {
+    "total_fp": 92,
+    "total_fn": 79,
+    "fp_avg_overlap": 0.0721,
+    "fn_avg_overlap": 0.0751,
+    "fp_avg_confidence": 0.8864,
+    "fn_avg_confidence": 0.1176
+  }
+}

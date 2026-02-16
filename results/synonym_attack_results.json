@@ -1,0 +1,78 @@
+{
+  "Synonym": {
+    "Base DANN": {
+      "asr": 0.0072,
+      "total": 197,
+      "clean_correct": 138,
+      "attacked_fooled": 1
+    },
+    "Robust DANN": {
+      "asr": 0.0079,
+      "total": 197,
+      "clean_correct": 127,
+      "attacked_fooled": 1
+    },
+    "PAN22 Siamese": {
+      "asr": 0.0,
+      "total": 197,
+      "clean_correct": 197,
+      "attacked_fooled": 0
+    },
+    "CD Siamese": {
+      "asr": 0.0,
+      "total": 197,
+      "clean_correct": 197,
+      "attacked_fooled": 0
+    },
+    "Rob Siamese": {
+      "asr": 0.0051,
+      "total": 197,
+      "clean_correct": 197,
+      "attacked_fooled": 1
+    },
+    "Ensemble": {
+      "asr": 0.0,
+      "total": 197,
+      "clean_correct": 197,
+      "attacked_fooled": 0
+    }
+  },
+  "T5 Paraphrase": {
+    "Base DANN": {
+      "asr": 0.1429,
+      "total": 50,
+      "clean_correct": 35,
+      "attacked_fooled": 5
+    },
+    "Robust DANN": {
+      "asr": 0.0769,
+      "total": 50,
+      "clean_correct": 26,
+      "attacked_fooled": 2
+    },
+    "PAN22 Siamese": {
+      "asr": 0.5,
+      "total": 50,
+      "clean_correct": 50,
+      "attacked_fooled": 25
+    },
+    "CD Siamese": {
+      "asr": 0.44,
+      "total": 50,
+      "clean_correct": 50,
+      "attacked_fooled": 22
+    },
+    "Rob Siamese": {
+      "asr": 0.74,
+      "total": 50,
+      "clean_correct": 50,
+      "attacked_fooled": 37
+    },
+    "Ensemble": {
+      "asr": 0.4,
+      "total": 50,
+      "clean_correct": 50,
+      "attacked_fooled": 20
+    }
+  }
+}
