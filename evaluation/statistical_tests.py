@@ -39,28 +39,29 @@ MODEL_CONFIGS = {
     },
     'PAN22 Siamese': {
         'type': 'siamese',
-        'model_path': 'results/siamese_baseline/best_model.pth',
-        'vec_path': 'results/siamese_baseline/vectorizer.pkl',
-        'scaler_path': 'results/siamese_baseline/scaler.pkl',
+        'model_path': 'results/checkpoints/siamese_baseline/best_model.pth',
+        'vec_path': 'results/checkpoints/siamese_baseline/vectorizer.pkl',
+        'scaler_path': 'results/checkpoints/siamese_baseline/scaler.pkl',
         'input_dim': 3000,
     },
     'CD Siamese': {
         'type': 'siamese',
-        'model_path': 'results/siamese_crossdomain/best_model.pth',
-        'vec_path': 'results/siamese_crossdomain/vectorizer.pkl',
-        'scaler_path': 'results/siamese_crossdomain/scaler.pkl',
+        'model_path': 'results/checkpoints/cd_siamese/best_model.pth',
+        'vec_path': 'results/checkpoints/cd_siamese/vectorizer.pkl',
+        'scaler_path': 'results/checkpoints/cd_siamese/scaler.pkl',
         'input_dim': 5000,
     },
     'Rob Siamese': {
         'type': 'siamese',
-        'model_path': 'results/robust_siamese/best_model.pth',
-        'vec_path': 'results/robust_siamese/vectorizer.pkl',
-        'scaler_path': 'results/robust_siamese/scaler.pkl',
+        'model_path': 'results/checkpoints/robust_siamese/best_model.pth',
+        'vec_path': 'results/checkpoints/robust_siamese/vectorizer.pkl',
+        'scaler_path': 'results/checkpoints/robust_siamese/scaler.pkl',
         'input_dim': 5000,
     },
 }
 
 EXTRACTOR_PATH = 'results/final_dann/extractor.pkl'
+ADV_CACHE = 'data/eval_adversarial_cache.jsonl'
 N_BOOTSTRAP = 1000
 CONFIDENCE_LEVEL = 0.95
 SEED = 42
@@ -78,7 +79,11 @@ def get_feats(extractor, texts):
 def load_models():
     """Load all models and return configs dict with loaded objects."""
     print("[1/4] Loading models...")
-    extractor = pickle.load(open(EXTRACTOR_PATH, 'rb'))
+    try:
+        extractor = pickle.load(open(EXTRACTOR_PATH, 'rb'))
+    except FileNotFoundError:
+        print(f"Warning: Extractor missing at {EXTRACTOR_PATH}")
+        extractor = None
     loaded = {}
 
     for name, cfg in MODEL_CONFIGS.items():
@@ -88,6 +93,9 @@ def load_models():
 
         try:
             if cfg['type'] == 'dann':
+                if extractor is None:
+                    print(f"  ✗ Skipping {name} due to missing extractor")
+                    continue
                 model = DANNSiameseV3(input_dim=4308, num_domains=4).to(DEVICE)
                 model.load_state_dict(torch.load(cfg['model_path'], map_location=DEVICE))
                 model.eval()
@@ -237,17 +245,23 @@ def mcnemar_test(y_true, preds_a, preds_b):
         return {
             'b': b, 'c': c,
             'chi2': 0.0, 'p_value': 1.0,
+            'cohens_g': 0.0, 'odds_ratio': 1.0,
             'significant': False
         }
 
     chi2 = (abs(b - c) - 1) ** 2 / (b + c)
     p_value = 1 - stats.chi2.cdf(chi2, df=1)
+    
+    cohens_g = max(b, c) / (b + c) - 0.5
+    odds_ratio = b / c if c > 0 else float('inf')
 
     return {
         'b': b, 'c': c,
         'chi2': round(float(chi2), 4),
-        'p_value': round(float(p_value), 6),
-        'significant': bool(p_value < 0.05)
+        'p_value': float(p_value),
+        'cohens_g': round(float(cohens_g), 4),
+        'odds_ratio': round(float(odds_ratio), 4),
+        'significant': False # Will be updated with corrected p-values
     }
 
 
@@ -267,10 +281,10 @@ def run_statistical_tests():
 
     # Domain loaders
     domain_loaders = {
-        'PAN22': PAN22Loader("pan22-authorship-verification-training.jsonl",
-                             "pan22-authorship-verification-training-truth.jsonl"),
-        'Blog': BlogTextLoader("blogtext.csv"),
-        'Enron': EnronLoader("emails.csv"),
+        'PAN22': PAN22Loader("data/raw/pan22_texts.jsonl",
+                             "data/raw/pan22_labels.jsonl"),
+        'Blog': BlogTextLoader("data/raw/blogtext.csv"),
+        'Enron': EnronLoader("data/raw/emails.csv"),
     }
 
     results = {
@@ -380,12 +394,66 @@ def run_statistical_tests():
 
             pair_key = f"{model_a} vs {model_b}"
             domain_results[pair_key] = result
-
-            sig = "***" if result['significant'] else "   "
+        
+        # Apply Bonferroni correction per domain
+        num_tests = len(domain_results)
+        alpha_corrected = 0.05 / num_tests if num_tests > 0 else 0.05
+        
+        for pair_key, res in domain_results.items():
+            res['p_value_bonferroni'] = min(1.0, res['p_value'] * num_tests)
+            res['significant'] = bool(res['p_value_bonferroni'] < 0.05)
+            
+            sig = "***" if res['significant'] else "   "
             print(f"  {domain} | {pair_key:40s} | "
-                  f"χ²={result['chi2']:7.2f} | p={result['p_value']:.4f} {sig}")
+                  f"χ²={res['chi2']:7.2f} | p_adj={res['p_value_bonferroni']:.4f} {sig} | g={res['cohens_g']:.2f}")
 
         results['mcnemar'][domain] = domain_results
+
+    # ==========================
+    # Phase 4: ASR Bootstrap CIs
+    # ==========================
+    print("\n[5/5] Computing ASR bootstrap confidence intervals...")
+    if os.path.exists(ADV_CACHE):
+        cached = []
+        with open(ADV_CACHE, 'r') as f:
+            for line in f:
+                cached.append(json.loads(line))
+        anchors_adv = [c['anchor'] for c in cached]
+        originals_adv = [c['positive'] for c in cached]
+        attacked_adv = [c['attacked'] for c in cached]
+        
+        results['asr_bootstrap'] = {}
+        for model_name, cfg in models.items():
+            print(f"    Predicting ASR for {model_name}...", end=" ")
+            p_orig = predict_batch(cfg, extractor, anchors_adv, originals_adv, domain='pan22')
+            p_atk = predict_batch(cfg, extractor, anchors_adv, attacked_adv, domain='pan22')
+            
+            # y_true is 1 for all (since they are positive pairs)
+            y_true = np.ones(len(p_orig))
+            
+            # We want to bootstrap ASR: (p_orig > 0.5) & (p_atk < 0.5) / (p_orig > 0.5)
+            # Custom metric fn:
+            def asr_metric(y_t, preds):
+                # preds is a combined array: we pass indices instead to keep them together
+                # We'll just define the bootstrap logic here for ASR since it involves two arrays
+                pass
+            
+            # Since bootstrap_ci only takes y_true and y_prob, we can pass index array as y_true
+            indices = np.arange(len(p_orig))
+            
+            def compute_asr_idx(idx, _):
+                orig_pred = p_orig[idx] > 0.5
+                atk_pred = p_atk[idx] > 0.5
+                valid = np.sum(orig_pred)
+                if valid == 0: return 0.0
+                success = np.sum(orig_pred & ~atk_pred)
+                return success / valid
+
+            asr_ci = bootstrap_ci(indices, indices, compute_asr_idx)
+            results['asr_bootstrap'][model_name] = asr_ci
+            print(f"ASR={asr_ci['mean']:.3f} [{asr_ci['lower']:.3f}, {asr_ci['upper']:.3f}]")
+    else:
+        print(f"  ✗ Skipping ASR: cache not found at {ADV_CACHE}")
 
     # ==========================
     # Save Results
@@ -425,7 +493,14 @@ def run_statistical_tests():
         if sig_pairs:
             print(f"\n  {domain}:")
             for pair, res in sig_pairs.items():
-                print(f"    {pair}: χ²={res['chi2']:.2f}, p={res['p_value']:.6f}")
+                print(f"    {pair}: χ²={res['chi2']:.2f}, p_adj={res['p_value_bonferroni']:.6f}, g={res['cohens_g']:.2f}")
+
+    if 'asr_bootstrap' in results and results['asr_bootstrap']:
+        print("\n" + "="*80)
+        print("ADVERSARIAL SUCCESS RATE (ASR) with 95% CI")
+        print("="*80)
+        for model_name, data in results['asr_bootstrap'].items():
+            print(f"{model_name:<18} {data['mean']:.3f} [{data['lower']:.3f}, {data['upper']:.3f}]")
 
     return results
 

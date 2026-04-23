@@ -93,7 +93,7 @@ def main():
 
     print("Loading BERT Siamese...")
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-    model = BERTSiamese(freeze_bert_layers=8).to(DEVICE)
+    model = BERTSiamese(freeze_bert_layers=2).to(DEVICE)
     model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
     model.eval()
     print("  ✓ Loaded")

@@ -116,7 +116,7 @@ class BERTSiamese(nn.Module):
       - MLP head: 3072 → 512 → 128 → 1
     """
 
-    def __init__(self, bert_model_name='bert-base-uncased', freeze_bert_layers=8):
+    def __init__(self, bert_model_name='bert-base-uncased', freeze_bert_layers=2):
         super().__init__()
 
         self.bert = BertModel.from_pretrained(bert_model_name)
@@ -174,35 +174,39 @@ def preprocess_text(text):
     return text[:1000]  # Limit to ~1000 chars (BERT handles tokenization)
 
 
-def load_pan22_pairs(max_pairs=2000):
-    """Load PAN22 pairs for training."""
-    print(f"Loading PAN22 data (max {max_pairs} pairs)...")
-    loader = PAN22Loader(
-        "pan22-authorship-verification-training.jsonl",
-        "pan22-authorship-verification-training-truth.jsonl"
-    )
-    loader.load(limit=max_pairs * 3)  # Load more to get enough pairs
-    t1, t2, labels = loader.create_pairs(num_pairs=max_pairs)
+def load_all_domains(max_pairs_per_domain=2000):
+    """Load pairs from all domains for cross-domain training."""
+    print(f"Loading data from all domains (max {max_pairs_per_domain} pairs each)...")
+    all_t1, all_t2, all_labels = [], [], []
 
-    labels = np.array(labels, dtype=np.float32)
-    valid = labels != -1
-    t1 = [preprocess_text(t1[i]) for i in range(len(t1)) if valid[i]]
-    t2 = [preprocess_text(t2[i]) for i in range(len(t2)) if valid[i]]
-    labels = labels[valid]
+    loaders = {
+        'PAN22': lambda: PAN22Loader("data/raw/pan22_texts.jsonl", "data/raw/pan22_labels.jsonl"),
+        'Blog': lambda: BlogTextLoader("data/raw/blogtext.csv"),
+        'Enron': lambda: EnronLoader("data/raw/emails.csv"),
+    }
 
-    print(f"  Loaded {len(labels)} valid pairs "
-          f"(pos={int(labels.sum())}, neg={int(len(labels) - labels.sum())})")
-    return t1, t2, labels
+    for name, loader_fn in loaders.items():
+        loader = loader_fn()
+        loader.load(limit=max_pairs_per_domain * 5)
+        t1, t2, labels = loader.create_pairs(num_pairs=max_pairs_per_domain)
+        labels = np.array(labels, dtype=np.float32)
+        valid = labels != -1
+        all_t1.extend([preprocess_text(t1[i]) for i in range(len(t1)) if valid[i]])
+        all_t2.extend([preprocess_text(t2[i]) for i in range(len(t2)) if valid[i]])
+        all_labels.extend(labels[valid])
+        print(f"  {name}: {int(valid.sum())} pairs")
+
+    labels_arr = np.array(all_labels)
+    print(f"Total pairs: {len(labels_arr)} (pos={int(labels_arr.sum())}, neg={int(len(labels_arr) - labels_arr.sum())})")
+    return all_t1, all_t2, labels_arr
 
 
 def load_eval_domain(domain_name, max_pairs=500):
     """Load evaluation pairs for a domain."""
     loaders = {
-        'PAN22': lambda: PAN22Loader(
-            "pan22-authorship-verification-training.jsonl",
-            "pan22-authorship-verification-training-truth.jsonl"),
-        'Blog': lambda: BlogTextLoader("blogtext.csv"),
-        'Enron': lambda: EnronLoader("emails.csv"),
+        'PAN22': lambda: PAN22Loader("data/raw/pan22_texts.jsonl", "data/raw/pan22_labels.jsonl"),
+        'Blog': lambda: BlogTextLoader("data/raw/blogtext.csv"),
+        'Enron': lambda: EnronLoader("data/raw/emails.csv"),
     }
 
     if domain_name not in loaders:
@@ -361,8 +365,7 @@ def main():
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
     if not args.eval_only:
-        # Load training data
-        t1, t2, labels = load_pan22_pairs(args.max_pairs)
+        t1, t2, labels = load_all_domains(args.max_pairs)
 
         # Split
         indices = list(range(len(labels)))
@@ -392,7 +395,7 @@ def main():
 
         # Init model
         print("\nInitializing BERT Siamese...")
-        model = BERTSiamese(freeze_bert_layers=8).to(DEVICE)
+        model = BERTSiamese(freeze_bert_layers=2).to(DEVICE)
 
         # Count parameters
         total_params = sum(p.numel() for p in model.parameters())
@@ -446,7 +449,7 @@ def main():
         if not os.path.exists(model_path):
             print(f"No saved model found at {model_path}")
             return
-        model = BERTSiamese(freeze_bert_layers=8).to(DEVICE)
+        model = BERTSiamese(freeze_bert_layers=2).to(DEVICE)
         model.load_state_dict(torch.load(model_path, map_location=DEVICE))
         print(f"Loaded model from {model_path}")
 
@@ -458,13 +461,13 @@ def main():
         'model': 'BERT Siamese (bert-base-uncased)',
         'architecture': {
             'encoder': 'bert-base-uncased (768-dim [CLS])',
-            'frozen_layers': 8,
+            'frozen_layers': 2,
             'interaction': '[u, v, |u-v|, u*v] → 3072-dim',
             'head': '3072 → 512 → 128 → 1',
         },
         'training': {
-            'dataset': 'PAN22',
-            'max_pairs': args.max_pairs,
+            'dataset': 'PAN22 + Blog + Enron',
+            'max_pairs_per_domain': args.max_pairs,
             'epochs': args.epochs,
             'batch_size': args.batch_size,
             'lr': args.lr,

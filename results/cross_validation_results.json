@@ -1,0 +1,18 @@
+{
+  "Rob Siamese": {
+    "acc_mean": 0.5799,
+    "acc_std": 0.028,
+    "f1_mean": 0.5041,
+    "f1_std": 0.069,
+    "auc_mean": 0.612,
+    "auc_std": 0.026
+  },
+  "Base DANN": {
+    "acc_mean": 0.5169,
+    "acc_std": 0.0247,
+    "f1_mean": 0.4065,
+    "f1_std": 0.099,
+    "auc_mean": 0.5281,
+    "auc_std": 0.0269
+  }
+}
