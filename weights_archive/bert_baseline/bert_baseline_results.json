@@ -1,0 +1,42 @@
+{
+  "model": "BERT Siamese (bert-base-uncased)",
+  "architecture": {
+    "encoder": "bert-base-uncased (768-dim [CLS])",
+    "frozen_layers": 8,
+    "interaction": "[u, v, |u-v|, u*v] \u2192 3072-dim",
+    "head": "3072 \u2192 512 \u2192 128 \u2192 1"
+  },
+  "training": {
+    "dataset": "PAN22",
+    "max_pairs": 2000,
+    "epochs": 5,
+    "batch_size": 16,
+    "lr": 2e-05,
+    "max_len": 256
+  },
+  "results": {
+    "PAN22": {
+      "accuracy": 0.546,
+      "auc": 0.5833,
+      "f1": 0.5968,
+      "n_pairs": 500
+    },
+    "Blog": {
+      "accuracy": 0.5083,
+      "auc": 0.5809,
+      "f1": 0.6704,
+      "n_pairs": 480
+    },
+    "Enron": {
+      "accuracy": 0.5087,
+      "auc": 0.6091,
+      "f1": 0.6686,
+      "n_pairs": 230
+    },
+    "Average": {
+      "accuracy": 0.521,
+      "auc": 0.5911,
+      "f1": 0.6453
+    }
+  }
+}

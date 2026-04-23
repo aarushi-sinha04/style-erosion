@@ -1,0 +1,5 @@
+Accuracy: 0.8354
+ROC-AUC: 0.9787
+F1: 0.8568
+Input Dim: 5000
+Domains: PAN22, Blog, Enron
